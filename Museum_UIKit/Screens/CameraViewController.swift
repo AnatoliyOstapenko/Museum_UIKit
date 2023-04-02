@@ -33,6 +33,7 @@ class CameraViewController: UIViewController {
         button.layer.cornerRadius = 40
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
+
         button.configuration = UIButton.Configuration.plain()
         
         button.configurationUpdateHandler = { [weak self] button in
@@ -148,10 +149,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
               let image = UIImage(data: data) else { return }
         // stop running cam session
         self.session?.stopRunning()
-        
-                let imageView = UIImageView(image: image)
-                imageView.contentMode = .scaleAspectFill
-                imageView.frame = view.bounds
-                view.addSubview(imageView)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame = view.bounds
+        view.addSubview(imageView)
+
     }
 }
