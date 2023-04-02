@@ -8,6 +8,7 @@
 import UIKit
 import AVFoundation
 
+// New side
 
 class CameraViewController: UIViewController {
     
@@ -103,14 +104,14 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation(),
-                let image = UIImage(data: data) else { return }
+        let image = UIImage(data: data) else { return }
         // stop running cam session
         self.session?.stopRunning()
         
-//        let imageView = UIImageView(image: image)
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.frame = view.bounds
-//        view.addSubview(imageView)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame = view.bounds
+        view.addSubview(imageView)
     }
 }
 
