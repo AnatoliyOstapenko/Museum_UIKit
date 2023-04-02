@@ -7,27 +7,51 @@
 
 import UIKit
 import AVFoundation
+import SnapKit
 
 
 class CameraViewController: UIViewController {
     
-    // MARK: - Private properties
+    // MARK: - Object relations
+    
+    var coordinator: CameraCoordinatorProtocol?
     
     private var session: AVCaptureSession?
     private let output = AVCapturePhotoOutput()
     private let previewLayer = AVCaptureVideoPreviewLayer()
     
-    private let shutterButton: UIButton = {
+    private var takenPicture = false {
+        didSet {
+            shutterButton.setNeedsUpdateConfiguration()
+        }
+    }
+    
+    // MARK: - Views
+    
+    private lazy var shutterButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
+        button.layer.opacity = 0.5
         button.layer.cornerRadius = 40
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
+        
+        button.configurationUpdateHandler = { [unowned self] button in
+            button.backgroundColor = self.takenPicture ? .white : .clear
+            button.isEnabled = !self.takenPicture
+        }
         return button
     }()
     
-    // MARK: - Object relations
+    private lazy var buttonsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 150
+        return stackView
+    }()
     
-    var coordinator: CameraCoordinatorProtocol?
+    private let photoButton = CameraButton(imageName: "photo.circle.fill")
+    private let boltModeButton = CameraButton(imageName: "bolt.circle.fill")
     
     // MARK: - Lifecycle
     
@@ -49,14 +73,38 @@ class CameraViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .black
         view.layer.addSublayer(previewLayer)
-        view.addSubview(shutterButton)
+        view.addAllSubviews(shutterButton, photoButton, boltModeButton)
+        
+        photoButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(50)
+            make.centerY.equalTo(shutterButton.snp.centerY)
+            make.height.width.equalTo(46)
+        }
+        
+        boltModeButton.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(50)
+            make.centerY.equalTo(shutterButton.snp.centerY)
+            make.height.width.equalTo(46)
+        }
+        
         shutterButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
+            /// uncomment when registration screen will be added
+            //          self.dismiss(animated: true)
+        })
     }
     
     @objc private func takePhoto() {
         print("photo was taken")
-        // TODO: - modify flach mode later
-        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        self.takenPicture = true
+        
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+            self.takenPicture = false
+        }
+        
+        // TODO: - modify bolt mode later
+//        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     private func checkCameraPermission() {
@@ -103,14 +151,14 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation(),
-                let image = UIImage(data: data) else { return }
+              let image = UIImage(data: data) else { return }
         // stop running cam session
         self.session?.stopRunning()
         
-//        let imageView = UIImageView(image: image)
-//        imageView.contentMode = .scaleAspectFill
-//        imageView.frame = view.bounds
-//        view.addSubview(imageView)
+        //        let imageView = UIImageView(image: image)
+        //        imageView.contentMode = .scaleAspectFill
+        //        imageView.frame = view.bounds
+        //        view.addSubview(imageView)
     }
 }
 
