@@ -9,7 +9,6 @@ import UIKit
 import AVFoundation
 import SnapKit
 
-
 class CameraViewController: UIViewController {
     
     // MARK: - Object relations
@@ -34,24 +33,19 @@ class CameraViewController: UIViewController {
         button.layer.cornerRadius = 40
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
+
+        button.configuration = UIButton.Configuration.plain()
         
-        button.configurationUpdateHandler = { [unowned self] button in
+        button.configurationUpdateHandler = { [weak self] button in
+            guard let self = self else { return }
             button.backgroundColor = self.takenPicture ? .white : .clear
             button.isEnabled = !self.takenPicture
         }
         return button
     }()
-    
-    private lazy var buttonsStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
-        stackView.spacing = 150
-        return stackView
-    }()
-    
-    private let photoButton = CameraButton(imageName: "photo.circle.fill")
-    private let boltModeButton = CameraButton(imageName: "bolt.circle.fill")
+
+    private let photoButton = CameraButton(imageName: "photo")
+    private let boltModeButton = CameraButton(imageName: "bolt.fill")
     
     // MARK: - Lifecycle
     
@@ -131,7 +125,7 @@ class CameraViewController: UIViewController {
                 let input = try AVCaptureDeviceInput(device: device)
                 if session.canAddInput(input) { session.addInput(input) }
                 if session.canAddOutput(self.output) { session.addOutput(self.output)}
-                
+              
                 self.previewLayer.videoGravity = .resizeAspectFill
                 self.previewLayer.session = session
                 
@@ -145,6 +139,7 @@ class CameraViewController: UIViewController {
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
         print("photo captured complete")
     }
@@ -154,11 +149,10 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
               let image = UIImage(data: data) else { return }
         // stop running cam session
         self.session?.stopRunning()
-        
-        //        let imageView = UIImageView(image: image)
-        //        imageView.contentMode = .scaleAspectFill
-        //        imageView.frame = view.bounds
-        //        view.addSubview(imageView)
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        imageView.frame = view.bounds
+        view.addSubview(imageView)
+
     }
 }
-
