@@ -36,15 +36,41 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
         recognitionView.frame = view.bounds
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let image = info[.originalImage] as? UIImage else {
-                print("No image found")
-                return
-            }
-        
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])  {
+        guard let image = info[.originalImage] as? UIImage, let ciImage = CIImage(image: image) else { return }
+       
+        recognizeImage(ciImage)
+
         DispatchQueue.main.async {
             self.recognitionView.image = image
             self.imagePickerVC.dismiss(animated: true)
+        }
+    }
+    
+    private func recognizeImage(_ ciImage: CIImage) {
+        guard let model = try? VNCoreMLModel(for: Inceptionv3(configuration: MLModelConfiguration()).model) else {
+           return
+        }
+        
+        // Handler
+        let handler = VNImageRequestHandler(ciImage: ciImage)
+        // Request
+        let request = VNCoreMLRequest(model: model) { request, error in
+            guard let results = request.results as? [VNClassificationObservation] else {
+                print("Request fails")
+                return
+            }
+            guard let confidence = results.compactMap({$0.confidence}).first,
+                  let recognizedObject = results.compactMap({$0.identifier}).first else { return }
+            
+            print("recognizedObject1: \(recognizedObject), confidence1: \(confidence)")
+        }
+        
+        // Process request
+        do {
+            try handler.perform([request])
+        } catch {
+            print(error)
         }
     }
     
