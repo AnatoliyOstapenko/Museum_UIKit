@@ -18,7 +18,8 @@
 		F9598FDB29D72D38004F5E00 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FDA29D72D38004F5E00 /* Coordinator.swift */; };
 		F9598FDD29D72D82004F5E00 /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FDC29D72D82004F5E00 /* CameraCoordinator.swift */; };
 		F985413829D9F34F00284A81 /* CamereButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F985413729D9F34F00284A81 /* CamereButton.swift */; };
-
+		F985413E29DA06B400284A81 /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F985413D29DA06B400284A81 /* Inceptionv3.mlmodel */; };
+		F985414029DADD4A00284A81 /* RecognitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F985413F29DADD4A00284A81 /* RecognitionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +38,8 @@
 		F9598FDA29D72D38004F5E00 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F9598FDC29D72D82004F5E00 /* CameraCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
 		F985413729D9F34F00284A81 /* CamereButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamereButton.swift; sourceTree = "<group>"; };
-
+		F985413D29DA06B400284A81 /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
+		F985413F29DADD4A00284A81 /* RecognitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,13 +94,12 @@
 			children = (
 				F9598FE029D74A7F004F5E00 /* Screens */,
 				F9598FDE29D73012004F5E00 /* Coordinators */,
+				F985413A29D9F83700284A81 /* Utilities */,
 				F9598FDF29D747D4004F5E00 /* Support */,
 				F9598FCF29D702B2004F5E00 /* Assets.xcassets */,
 				F9598FD129D702B2004F5E00 /* LaunchScreen.storyboard */,
 				F9598FD429D702B2004F5E00 /* Info.plist */,
 				F9598FCC29D702B1004F5E00 /* Museum_UIKit.xcdatamodeld */,
-				F90835BF29D9F294002A7799 /* UIViews+Ext.swift */,
-
 			);
 			path = Museum_UIKit;
 			sourceTree = "<group>";
@@ -115,6 +116,7 @@
 		F9598FDF29D747D4004F5E00 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				F985413D29DA06B400284A81 /* Inceptionv3.mlmodel */,
 				F9598FC329D702B1004F5E00 /* AppDelegate.swift */,
 				F9598FC529D702B1004F5E00 /* SceneDelegate.swift */,
 			);
@@ -125,34 +127,42 @@
 			isa = PBXGroup;
 			children = (
 				F9598FC729D702B1004F5E00 /* CameraViewController.swift */,
-				F985413729D9F34F00284A81 /* CamereButton.swift */,
+				F985413F29DADD4A00284A81 /* RecognitionViewController.swift */,
+				F985413B29D9F85400284A81 /* Views */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		F966F1CC29D8815A006E9F88 /* Utility */ = {
+		F985413929D9F82700284A81 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				F966F1CA29D8813A006E9F88 /* UIViewController+Children.swift */,
-				F966F1CD29D88207006E9F88 /* UIView+Ext.swift */,
+				F90835BF29D9F294002A7799 /* UIViews+Ext.swift */,
 			);
-			path = Utility;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		F966F1D129D9CFE6006E9F88 /* Buttons */ = {
+		F985413A29D9F83700284A81 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				F966F1CF29D9CFE1006E9F88 /* CameraButton.swift */,
+				F985413929D9F82700284A81 /* Extensions */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		F985413B29D9F85400284A81 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F985413C29D9F86100284A81 /* Buttons */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F985413C29D9F86100284A81 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				F985413729D9F34F00284A81 /* CamereButton.swift */,
 			);
 			path = Buttons;
-			sourceTree = "<group>";
-		};
-		F966F1D229D9CFEF006E9F88 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				F966F1D129D9CFE6006E9F88 /* Buttons */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,7 +280,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */,
-				F966F1D029D9CFE1006E9F88 /* CameraButton.swift in Sources */,
+				F985413E29DA06B400284A81 /* Inceptionv3.mlmodel in Sources */,
+				F985414029DADD4A00284A81 /* RecognitionViewController.swift in Sources */,
 				F9598FDD29D72D82004F5E00 /* CameraCoordinator.swift in Sources */,
 				F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */,
 				F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */,

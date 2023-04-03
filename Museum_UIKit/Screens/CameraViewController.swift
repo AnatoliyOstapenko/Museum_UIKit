@@ -33,7 +33,7 @@ class CameraViewController: UIViewController {
         button.layer.cornerRadius = 40
         button.layer.borderWidth = 2
         button.layer.borderColor = UIColor.white.cgColor
-
+        
         button.configuration = UIButton.Configuration.plain()
         
         button.configurationUpdateHandler = { [weak self] button in
@@ -43,7 +43,7 @@ class CameraViewController: UIViewController {
         }
         return button
     }()
-
+    
     private let photoButton = CameraButton(imageName: "photo")
     private let boltModeButton = CameraButton(imageName: "bolt.fill")
     
@@ -98,7 +98,7 @@ class CameraViewController: UIViewController {
         }
         
         // TODO: - modify bolt mode later
-//        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        //        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     private func checkCameraPermission() {
@@ -125,7 +125,7 @@ class CameraViewController: UIViewController {
                 let input = try AVCaptureDeviceInput(device: device)
                 if session.canAddInput(input) { session.addInput(input) }
                 if session.canAddOutput(self.output) { session.addOutput(self.output)}
-              
+                
                 self.previewLayer.videoGravity = .resizeAspectFill
                 self.previewLayer.session = session
                 
@@ -153,6 +153,5 @@ extension CameraViewController: AVCapturePhotoCaptureDelegate {
         imageView.contentMode = .scaleAspectFill
         imageView.frame = view.bounds
         view.addSubview(imageView)
-
     }
 }
