@@ -7,5 +7,6 @@ target 'Museum_UIKit' do
 
   # Pods for Museum_UIKit
   pod 'SnapKit', '~> 5.6.0'
+  pod 'Alamofire'
 
 end

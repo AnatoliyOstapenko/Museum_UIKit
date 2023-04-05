@@ -7,8 +7,10 @@
 
 import UIKit
 import AVFoundation
+import Vision
 import SnapKit
 
+// I left this VC as an example of a custom camera
 class CameraViewController: UIViewController {
     
     // MARK: - Object relations
@@ -26,6 +28,13 @@ class CameraViewController: UIViewController {
     }
     
     // MARK: - Views
+    
+    private lazy var previewView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
     
     private lazy var shutterButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
@@ -57,6 +66,7 @@ class CameraViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        previewView.frame = view.bounds
         previewLayer.frame = view.bounds
         shutterButton.center = CGPoint(x: view.frame.size.width / 2,
                                        y: view.frame.size.height - 80)
@@ -67,7 +77,7 @@ class CameraViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .black
         view.layer.addSublayer(previewLayer)
-        view.addAllSubviews(shutterButton, photoButton, boltModeButton)
+        view.addAllSubviews(previewView, shutterButton, photoButton, boltModeButton)
         
         photoButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(50)
@@ -84,11 +94,10 @@ class CameraViewController: UIViewController {
         shutterButton.addTarget(self, action: #selector(takePhoto), for: .touchUpInside)
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
-            /// uncomment when registration screen will be added
-            //          self.dismiss(animated: true)
+            self.navigationController?.popViewController(animated: true)
         })
     }
-    
+
     @objc private func takePhoto() {
         print("photo was taken")
         self.takenPicture = true
@@ -98,7 +107,7 @@ class CameraViewController: UIViewController {
         }
         
         // TODO: - modify bolt mode later
-        //        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
+        output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
     }
     
     private func checkCameraPermission() {
@@ -136,22 +145,48 @@ class CameraViewController: UIViewController {
             }
         }
     }
+    
+    private func recognizeImage(_ ciImage: CIImage) {
+        guard let model = try? VNCoreMLModel(for: Inceptionv3(configuration: MLModelConfiguration()).model) else {
+            return
+        }
+        
+        // Handler
+        let handler = VNImageRequestHandler(ciImage: ciImage)
+        // Request
+        let request = VNCoreMLRequest(model: model) { request, error in
+            guard let result = request.results?.first as? VNClassificationObservation else {
+                print("Request fails")
+                return
+            }
+            
+            print("\(result.identifier) - \(String(format: "%.0f", Double(result.confidence * 100)))%")
+
+        }
+        // Process request
+        do {
+            try handler.perform([request])
+        } catch {
+            print(error)
+        }
+    }
 }
 
 extension CameraViewController: AVCapturePhotoCaptureDelegate {
-    
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
-        print("photo captured complete")
-    }
-    
+
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation(),
-              let image = UIImage(data: data) else { return }
-        // stop running cam session
+              let image = UIImage(data: data), let ciImage = CIImage(image: image) else {
+                  print("Failed to convert data to image")
+                  return }
+        
         self.session?.stopRunning()
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFill
-        imageView.frame = view.bounds
-        view.addSubview(imageView)
+        
+        // image handling
+        recognizeImage(ciImage)
+        
+        DispatchQueue.main.async {
+            self.previewView.image = image
+        }
     }
 }

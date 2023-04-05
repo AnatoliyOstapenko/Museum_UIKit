@@ -18,7 +18,7 @@ class CameraCoordinator: CameraCoordinatorProtocol {
     }
     
     func start() {
-        let view = CameraViewController()
+        let view = RecognitionViewController()
         view.coordinator = self
         navigationController.pushViewController(view, animated: true)
     }
