@@ -6,7 +6,8 @@ target 'Museum_UIKit' do
   use_frameworks!
 
   # Pods for Museum_UIKit
-  pod 'SnapKit', '~> 5.6.0'
+  pod 'SnapKit'
   pod 'Alamofire'
+  pod 'SwiftyJSON'
 
 end

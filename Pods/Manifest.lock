@@ -1,20 +1,24 @@
 PODS:
   - Alamofire (5.6.4)
   - SnapKit (5.6.0)
+  - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
-  - SnapKit (~> 5.6.0)
+  - SnapKit
+  - SwiftyJSON
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - SnapKit
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: ab58609a0d2d81933cb2015e8f50583c09847178
+PODFILE CHECKSUM: c3dd000cb8eeca5d4f344148855108f3bc90d28e
 
 COCOAPODS: 1.12.0
