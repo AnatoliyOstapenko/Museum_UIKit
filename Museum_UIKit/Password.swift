@@ -6,5 +6,4 @@
 //
 
 import Foundation
-
-/// gitignore is zalupa
+// nothing
