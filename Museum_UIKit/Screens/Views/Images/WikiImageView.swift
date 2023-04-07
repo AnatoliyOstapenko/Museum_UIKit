@@ -21,8 +21,9 @@ class WikiImageView: UIImageView {
         }
         
         private func configure() {
-            image = UIImage(systemName: "trash")
+            image = UIImage(systemName: "photo")
             tintColor = .white
+            layer.cornerRadius = 10
             contentMode = .scaleAspectFill
         }
         

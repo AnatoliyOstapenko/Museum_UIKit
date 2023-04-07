@@ -17,8 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
-        coordinator = CameraCoordinator(navigationController: navController)
-        coordinator?.start()
+//        coordinator = CameraCoordinator(navigationController: navController)
+//        coordinator?.start()
+        navController.pushViewController(FirebaseViewController(), animated: true)
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }

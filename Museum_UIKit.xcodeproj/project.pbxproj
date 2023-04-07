@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9E81BDD4C94FE4DAECE404A2 /* Pods_Museum_UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A377917BC2409BC535E9DE84 /* Pods_Museum_UIKit.framework */; };
 		F90165D629DDC20B00AA11CD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165D529DDC20B00AA11CD /* Constants.swift */; };
-		F90165D829DDCC1600AA11CD /* Passwords.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165D729DDCC1600AA11CD /* Passwords.swift */; };
 		F90165DA29DDD4E800AA11CD /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165D929DDD4E800AA11CD /* NetworkingManager.swift */; };
 		F90165DC29DDD61300AA11CD /* WikiAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */; };
 		F90165E129DDE31700AA11CD /* CameraPresnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165E029DDE31700AA11CD /* CameraPresnter.swift */; };
@@ -18,6 +17,7 @@
 		F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */; };
 		F9549F1129DF3F4F00C1F26C /* WikiImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */; };
 		F9549F1329E0328E00C1F26C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */; };
+		F9549F1529E040C100C1F26C /* FirebaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1429E040C100C1F26C /* FirebaseViewController.swift */; };
 		F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC329D702B1004F5E00 /* AppDelegate.swift */; };
 		F9598FC629D702B1004F5E00 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC529D702B1004F5E00 /* SceneDelegate.swift */; };
 		F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC729D702B1004F5E00 /* CameraViewController.swift */; };
@@ -36,7 +36,6 @@
 		CD167B83B1101751391776E0 /* Pods-Museum_UIKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museum_UIKit.release.xcconfig"; path = "Target Support Files/Pods-Museum_UIKit/Pods-Museum_UIKit.release.xcconfig"; sourceTree = "<group>"; };
 		E7FABA5E7D9807870A1EEF83 /* Pods-Museum_UIKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Museum_UIKit.debug.xcconfig"; path = "Target Support Files/Pods-Museum_UIKit/Pods-Museum_UIKit.debug.xcconfig"; sourceTree = "<group>"; };
 		F90165D529DDC20B00AA11CD /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		F90165D729DDCC1600AA11CD /* Passwords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Passwords.swift; sourceTree = "<group>"; };
 		F90165D929DDD4E800AA11CD /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiAPIModel.swift; sourceTree = "<group>"; };
 		F90165E029DDE31700AA11CD /* CameraPresnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresnter.swift; sourceTree = "<group>"; };
@@ -45,6 +44,7 @@
 		F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImageView.swift; sourceTree = "<group>"; };
 		F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImagePresenter.swift; sourceTree = "<group>"; };
 		F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F9549F1429E040C100C1F26C /* FirebaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewController.swift; sourceTree = "<group>"; };
 		F9598FC029D702B1004F5E00 /* Museum_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Museum_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9598FC329D702B1004F5E00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9598FC529D702B1004F5E00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,7 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				F90165D529DDC20B00AA11CD /* Constants.swift */,
-				F90165D729DDCC1600AA11CD /* Passwords.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -192,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				F9598FC729D702B1004F5E00 /* CameraViewController.swift */,
+				F9549F1429E040C100C1F26C /* FirebaseViewController.swift */,
 				F985413F29DADD4A00284A81 /* RecognitionViewController.swift */,
 				F985413B29D9F85400284A81 /* Views */,
 			);
@@ -348,13 +348,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */,
-				F90165D829DDCC1600AA11CD /* Passwords.swift in Sources */,
 				F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */,
 				F90165D629DDC20B00AA11CD /* Constants.swift in Sources */,
 				F985413E29DA06B400284A81 /* Inceptionv3.mlmodel in Sources */,
 				F985414029DADD4A00284A81 /* RecognitionViewController.swift in Sources */,
 				F9598FDD29D72D82004F5E00 /* CameraCoordinator.swift in Sources */,
 				F90165E429DDE3C300AA11CD /* WikiModel.swift in Sources */,
+				F9549F1529E040C100C1F26C /* FirebaseViewController.swift in Sources */,
 				F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */,
 				F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */,
 				F90165DA29DDD4E800AA11CD /* NetworkingManager.swift in Sources */,
@@ -507,7 +507,8 @@
 				DEVELOPMENT_TEAM = K33FXWL25N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Museum_UIKit/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Let access to your camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let acces to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -538,7 +539,8 @@
 				DEVELOPMENT_TEAM = K33FXWL25N;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Museum_UIKit/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow access to your camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Let access to your camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let acces to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

@@ -46,11 +46,7 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
         guard let image = info[.originalImage] as? UIImage, let ciImage = CIImage(image: image) else { return }
        
         recognizeImage(ciImage)
-
-        DispatchQueue.main.async {
-            self.recognitionView.image = image
-            self.imagePickerVC.dismiss(animated: true)
-        }
+        imagePickerVC.dismiss(animated: true)
     }
     
     private func recognizeImage(_ ciImage: CIImage) {
