@@ -15,6 +15,9 @@
 		F90165E129DDE31700AA11CD /* CameraPresnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165E029DDE31700AA11CD /* CameraPresnter.swift */; };
 		F90165E429DDE3C300AA11CD /* WikiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165E329DDE3C300AA11CD /* WikiModel.swift */; };
 		F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90835BF29D9F294002A7799 /* UIViews+Ext.swift */; };
+		F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */; };
+		F9549F1129DF3F4F00C1F26C /* WikiImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */; };
+		F9549F1329E0328E00C1F26C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */; };
 		F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC329D702B1004F5E00 /* AppDelegate.swift */; };
 		F9598FC629D702B1004F5E00 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC529D702B1004F5E00 /* SceneDelegate.swift */; };
 		F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC729D702B1004F5E00 /* CameraViewController.swift */; };
@@ -39,6 +42,9 @@
 		F90165E029DDE31700AA11CD /* CameraPresnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresnter.swift; sourceTree = "<group>"; };
 		F90165E329DDE3C300AA11CD /* WikiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiModel.swift; sourceTree = "<group>"; };
 		F90835BF29D9F294002A7799 /* UIViews+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViews+Ext.swift"; sourceTree = "<group>"; };
+		F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImageView.swift; sourceTree = "<group>"; };
+		F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImagePresenter.swift; sourceTree = "<group>"; };
+		F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F9598FC029D702B1004F5E00 /* Museum_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Museum_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9598FC329D702B1004F5E00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9598FC529D702B1004F5E00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,8 +119,17 @@
 			isa = PBXGroup;
 			children = (
 				F90165E029DDE31700AA11CD /* CameraPresnter.swift */,
+				F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */,
 			);
 			path = Presenters;
+			sourceTree = "<group>";
+		};
+		F9549F0D29DF3ECB00C1F26C /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 		F9598FB729D702B1004F5E00 = {
@@ -138,16 +153,17 @@
 		F9598FC229D702B1004F5E00 /* Museum_UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				F9598FE029D74A7F004F5E00 /* Screens */,
-				F9598FDE29D73012004F5E00 /* Coordinators */,
 				F90165DE29DDDB8F00AA11CD /* Managers */,
-				F90165DF29DDDB9400AA11CD /* Models */,
+				F9598FE029D74A7F004F5E00 /* Screens */,
 				F90165E229DDE3A500AA11CD /* Presenters */,
+				F9598FDE29D73012004F5E00 /* Coordinators */,
+				F90165DF29DDDB9400AA11CD /* Models */,
 				F985413A29D9F83700284A81 /* Utilities */,
 				F9598FDF29D747D4004F5E00 /* Support */,
 				F9598FCF29D702B2004F5E00 /* Assets.xcassets */,
 				F9598FD129D702B2004F5E00 /* LaunchScreen.storyboard */,
 				F9598FD429D702B2004F5E00 /* Info.plist */,
+				F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */,
 				F9598FCC29D702B1004F5E00 /* Museum_UIKit.xcdatamodeld */,
 			);
 			path = Museum_UIKit;
@@ -203,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				F985413C29D9F86100284A81 /* Buttons */,
+				F9549F0D29DF3ECB00C1F26C /* Images */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -277,6 +294,7 @@
 			files = (
 				F9598FD329D702B2004F5E00 /* LaunchScreen.storyboard in Resources */,
 				F9598FD029D702B2004F5E00 /* Assets.xcassets in Resources */,
+				F9549F1329E0328E00C1F26C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */,
 				F90165D829DDCC1600AA11CD /* Passwords.swift in Sources */,
 				F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */,
 				F90165D629DDC20B00AA11CD /* Constants.swift in Sources */,
@@ -344,6 +363,7 @@
 				F90165DC29DDD61300AA11CD /* WikiAPIModel.swift in Sources */,
 				F9598FCE29D702B1004F5E00 /* Museum_UIKit.xcdatamodeld in Sources */,
 				F985413829D9F34F00284A81 /* CamereButton.swift in Sources */,
+				F9549F1129DF3F4F00C1F26C /* WikiImagePresenter.swift in Sources */,
 				F9598FC629D702B1004F5E00 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

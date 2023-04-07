@@ -11,6 +11,7 @@ import Alamofire
 protocol NetworkingManagerProtocol {
     func getDataFromWiki(query: String, completion: @escaping (Result<WikiModel, NetworkingError>)->Void)
     func requestInfo(query: String, completion: @escaping(Result<WikiModel, Error>) -> Void)
+    func downloadImage(imageURL: String, completion: @escaping(UIImage?) -> Void)
 }
 
 enum NetworkingError: Error {
@@ -62,6 +63,18 @@ class NetworkingManager: NetworkingManagerProtocol {
             } catch {
                 completion(.failure(.unableToComplete))
             }
+        }
+        task.resume()
+    }
+    
+    // Get image from Wiki
+    
+    func downloadImage(imageURL: String, completion: @escaping(UIImage?) -> Void) {
+        guard let url = URL(string: imageURL) else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            guard error == nil, let data = data, let image = UIImage(data: data) else { return }
+            completion(image)
         }
         task.resume()
     }

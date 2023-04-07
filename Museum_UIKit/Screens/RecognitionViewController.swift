@@ -17,12 +17,7 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
     private var alertItem: AlertItem?
     private var wikiModel: WikiModel?
     
-    private lazy var recognitionView: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFit
-        return view
-    }()
+    private let recognitionView = WikiImageView(frame: .zero)
     
     private lazy var imagePickerVC: UIImagePickerController = {
         let vc = UIImagePickerController()
@@ -73,10 +68,6 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
             
             guard let recognizedText = result.identifier.components(separatedBy: ",").first else { return }
             self.presenter?.getWikiData(query: recognizedText)
-            
-
-                
-
         }
         
         // Process request
@@ -93,9 +84,10 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
         descriptionLabel.backgroundColor = .clear
         
         recognitionView.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            make.leading.equalToSuperview().inset(20)
+            make.trailing.equalToSuperview().inset(20)
             make.top.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(view.snp.height).dividedBy(2)
+            make.height.equalTo(view.snp.height).dividedBy(2.2)
         }
         
         descriptionLabel.snp.makeConstraints { make in
@@ -124,6 +116,7 @@ extension RecognitionViewController: CameraViewProtocol {
         case .unableToComplete: alertItem = AlertContext.unableToComplete
         }
         // Show custom error message if url request fails
+        
         let alert = UIAlertController(title: self.alertItem?.title,
                                       message: self.alertItem?.message,
                                       preferredStyle: .alert)
@@ -135,5 +128,6 @@ extension RecognitionViewController: CameraViewProtocol {
     func setWikiData(with data: WikiModel) {
         self.title = data.title
         descriptionLabel.text = data.description
+        recognitionView.getIcon(imageString: data.imageURL)
     }
 }
