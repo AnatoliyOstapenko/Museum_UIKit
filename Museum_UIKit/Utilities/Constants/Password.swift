@@ -12,4 +12,14 @@ enum Password {
     static let wikiEndpoint = "https://en.wikipedia.org/w/api.php"
     /// delete &exintro= if you need more info from  your query
     static let wikiBaseURL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&pithumbsize=500&format=json&explaintext=&indexpageids&exintro=&titles="
+    static let qwikiEndpoint = "https://en.wikipedia.org/w/api.php"
+    /// delete &exintro= if you need more info from  your query
+    static let qwikiBaseURL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&pithumbsize=500&format=json&explaintext=&indexpageids&exintro=&titles="
+    static let wwikiEndpoint = "https://en.wikipedia.org/w/api.php"
+    /// delete &exintro= if you need more info from  your query
+    static let wwikiBaseURL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&pithumbsize=500&format=json&explaintext=&indexpageids&exintro=&titles="
+}
+
+enum FakeEnum {
+    case ignore
 }
