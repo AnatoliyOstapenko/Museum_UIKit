@@ -26,5 +26,9 @@ class CameraCoordinator: CameraCoordinatorProtocol {
         navigationController.pushViewController(view, animated: true)
     }
     
+    func goToDescription() {
+        
+    }
+    
     
 }

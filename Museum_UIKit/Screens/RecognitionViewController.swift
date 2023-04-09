@@ -65,7 +65,7 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
             }
             
             guard let recognizedText = result.identifier.components(separatedBy: ",").first else { return }
-            self.presenter?.getWikiData(query: recognizedText)
+//            self.presenter?.getWikiData(query: recognizedText)
         }
         
         // Process request
@@ -104,24 +104,28 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
 }
 
 extension RecognitionViewController: CameraViewProtocol {
+    
     func setAlert(with alertItem: AlertItem?) {
         // Show custom error message if url request fails
-        let alert = UIAlertController(title: alertItem?.title,
-                                      message: alertItem?.message,
-                                      preferredStyle: .alert)
-        let ok = UIAlertAction(title: "OK", style: .cancel)
-        alert.addAction(ok)
-        self.present(alert, animated: true)
+        if alertItem != nil {
+            let alert = UIAlertController(title: alertItem?.title,
+                                          message: alertItem?.message,
+                                          preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
+        }
     }
     
     func setLink(with stringURL: String) {
         print("Lets handling this link: \(stringURL)")
-        recognitionView.getIcon(imageString: stringURL)
+        self.present(DescriptionViewController(stringURL: stringURL), animated: true)
+//        recognitionView.getIcon(imageString: stringURL)
     }
     
-    func setWikiData(with data: WikiModel) {
-        self.title = data.title
-        descriptionLabel.text = data.description
-        recognitionView.getIcon(imageString: data.imageURL)
-    }
+//    func setWikiData(with data: WikiModel) {
+//        self.title = data.title
+//        descriptionLabel.text = data.description
+//        recognitionView.getIcon(imageString: data.imageURL)
+//    }
 }

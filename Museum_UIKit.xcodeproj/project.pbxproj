@@ -19,6 +19,7 @@
 		F9549F2129E0967400C1F26C /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2029E0967400C1F26C /* Password.swift */; };
 		F9549F2329E1DA7800C1F26C /* ImageProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2229E1DA7800C1F26C /* ImageProperties.swift */; };
 		F9549F2529E1E66700C1F26C /* ImgurModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2429E1E66700C1F26C /* ImgurModel.swift */; };
+		F9549F2729E2F01C00C1F26C /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2629E2F01C00C1F26C /* DescriptionViewController.swift */; };
 		F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC329D702B1004F5E00 /* AppDelegate.swift */; };
 		F9598FC629D702B1004F5E00 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC529D702B1004F5E00 /* SceneDelegate.swift */; };
 		F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC729D702B1004F5E00 /* CameraViewController.swift */; };
@@ -47,6 +48,7 @@
 		F9549F2029E0967400C1F26C /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		F9549F2229E1DA7800C1F26C /* ImageProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProperties.swift; sourceTree = "<group>"; };
 		F9549F2429E1E66700C1F26C /* ImgurModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgurModel.swift; sourceTree = "<group>"; };
+		F9549F2629E2F01C00C1F26C /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		F9598FC029D702B1004F5E00 /* Museum_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Museum_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9598FC329D702B1004F5E00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9598FC529D702B1004F5E00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			children = (
 				F9598FC729D702B1004F5E00 /* CameraViewController.swift */,
 				F985413F29DADD4A00284A81 /* RecognitionViewController.swift */,
+				F9549F2629E2F01C00C1F26C /* DescriptionViewController.swift */,
 				F985413B29D9F85400284A81 /* Views */,
 			);
 			path = Screens;
@@ -364,6 +367,7 @@
 				F90165E129DDE31700AA11CD /* CameraPresnter.swift in Sources */,
 				F9598FDB29D72D38004F5E00 /* Coordinator.swift in Sources */,
 				F90165DC29DDD61300AA11CD /* WikiAPIModel.swift in Sources */,
+				F9549F2729E2F01C00C1F26C /* DescriptionViewController.swift in Sources */,
 				F9598FCE29D702B1004F5E00 /* Museum_UIKit.xcdatamodeld in Sources */,
 				F985413829D9F34F00284A81 /* CamereButton.swift in Sources */,
 				F9549F2529E1E66700C1F26C /* ImgurModel.swift in Sources */,
