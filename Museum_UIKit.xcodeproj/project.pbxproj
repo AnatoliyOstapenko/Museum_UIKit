@@ -19,6 +19,8 @@
 		F9549F1329E0328E00C1F26C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */; };
 		F9549F1529E040C100C1F26C /* FirebaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1429E040C100C1F26C /* FirebaseViewController.swift */; };
 		F9549F2129E0967400C1F26C /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2029E0967400C1F26C /* Password.swift */; };
+		F9549F2329E1DA7800C1F26C /* ImageProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2229E1DA7800C1F26C /* ImageProperties.swift */; };
+		F9549F2529E1E66700C1F26C /* ImgurModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2429E1E66700C1F26C /* ImgurModel.swift */; };
 		F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC329D702B1004F5E00 /* AppDelegate.swift */; };
 		F9598FC629D702B1004F5E00 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC529D702B1004F5E00 /* SceneDelegate.swift */; };
 		F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC729D702B1004F5E00 /* CameraViewController.swift */; };
@@ -47,6 +49,8 @@
 		F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F9549F1429E040C100C1F26C /* FirebaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewController.swift; sourceTree = "<group>"; };
 		F9549F2029E0967400C1F26C /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
+		F9549F2229E1DA7800C1F26C /* ImageProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProperties.swift; sourceTree = "<group>"; };
+		F9549F2429E1E66700C1F26C /* ImgurModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgurModel.swift; sourceTree = "<group>"; };
 		F9598FC029D702B1004F5E00 /* Museum_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Museum_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9598FC329D702B1004F5E00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9598FC529D702B1004F5E00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +117,8 @@
 			children = (
 				F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */,
 				F90165E329DDE3C300AA11CD /* WikiModel.swift */,
+				F9549F2229E1DA7800C1F26C /* ImageProperties.swift */,
+				F9549F2429E1E66700C1F26C /* ImgurModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -362,11 +368,13 @@
 				F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */,
 				F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */,
 				F90165DA29DDD4E800AA11CD /* NetworkingManager.swift in Sources */,
+				F9549F2329E1DA7800C1F26C /* ImageProperties.swift in Sources */,
 				F90165E129DDE31700AA11CD /* CameraPresnter.swift in Sources */,
 				F9598FDB29D72D38004F5E00 /* Coordinator.swift in Sources */,
 				F90165DC29DDD61300AA11CD /* WikiAPIModel.swift in Sources */,
 				F9598FCE29D702B1004F5E00 /* Museum_UIKit.xcdatamodeld in Sources */,
 				F985413829D9F34F00284A81 /* CamereButton.swift in Sources */,
+				F9549F2529E1E66700C1F26C /* ImgurModel.swift in Sources */,
 				F9549F1129DF3F4F00C1F26C /* WikiImagePresenter.swift in Sources */,
 				F9598FC629D702B1004F5E00 /* SceneDelegate.swift in Sources */,
 			);
@@ -512,7 +520,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Museum_UIKit/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Let access to your camera";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let acces to your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Let access to edit your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let access to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -544,7 +553,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Museum_UIKit/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Let access to your camera";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let acces to your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Let access to edit your photo library";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Let access to your photo library";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";

@@ -22,11 +22,11 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
     private lazy var imagePickerVC: UIImagePickerController = {
         let vc = UIImagePickerController()
         vc.sourceType = .camera
-        vc.allowsEditing = false
+        vc.allowsEditing = true /// it is important to use the cropped image for further uploading to imgur
         vc.delegate = self
         return vc
     }()
-
+    
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.adjustsFontSizeToFitWidth = true
@@ -36,22 +36,23 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])  {
-        guard let image = info[.originalImage] as? UIImage, let ciImage = CIImage(image: image) else { return }
-       
-        recognizeImage(ciImage)
+        guard let image = info[.editedImage] as? UIImage, let ciImage = CIImage(image: image) else { return }
+//        guard let testImage = UIImage(named: "imageTest") else { return }
+        presenter?.fetchLink(image: image)
+        //recognizeImage(ciImage)
         imagePickerVC.dismiss(animated: true)
     }
     
     private func recognizeImage(_ ciImage: CIImage) {
         guard let model = try? VNCoreMLModel(for: Inceptionv3(configuration: MLModelConfiguration()).model) else {
-           return
+            return
         }
         // Handler
         let handler = VNImageRequestHandler(ciImage: ciImage)
@@ -92,7 +93,7 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
             make.top.equalTo(recognitionView.snp.bottom)
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
-
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(cameraTapped))
         navigationItem.rightBarButtonItem?.tintColor = .label
     }
@@ -103,6 +104,11 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
 }
 
 extension RecognitionViewController: CameraViewProtocol {
+    func setLink(with stringURL: String) {
+        print("Lets handling this link: \(stringURL)")
+        recognitionView.getIcon(imageString: stringURL)
+    }
+    
     func setErorrs(with errors: NetworkingError) {
         switch errors {
         case .invalidURL: alertItem = AlertContext.invalidURL
@@ -110,6 +116,7 @@ extension RecognitionViewController: CameraViewProtocol {
         case .invalidData: alertItem = AlertContext.invalidData
         case .invalidTask: alertItem = AlertContext.invalidTask
         case .unableToComplete: alertItem = AlertContext.unableToComplete
+        case .invalidImage: alertItem = AlertContext.invalidImage
         }
         // Show custom error message if url request fails
         

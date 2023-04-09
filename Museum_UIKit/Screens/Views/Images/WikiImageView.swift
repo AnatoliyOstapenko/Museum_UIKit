@@ -10,7 +10,7 @@ import UIKit
 class WikiImageView: UIImageView {
 
         lazy var presenter = WikiImagePresenter(view: self, networkManager: NetworkingManager())
-        
+
         override init(frame: CGRect) {
             super.init(frame: frame)
             configure()

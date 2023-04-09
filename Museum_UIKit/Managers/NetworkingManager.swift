@@ -7,11 +7,13 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 protocol NetworkingManagerProtocol {
     func getDataFromWiki(query: String, completion: @escaping (Result<WikiModel, NetworkingError>)->Void)
     func requestInfo(query: String, completion: @escaping(Result<WikiModel, Error>) -> Void)
     func downloadImage(imageURL: String, completion: @escaping(UIImage?) -> Void)
+    func uploadImage(image: UIImage?, completion: @escaping(Result<String, NetworkingError>) -> Void)
 }
 
 enum NetworkingError: Error {
@@ -20,15 +22,19 @@ enum NetworkingError: Error {
     case invalidData
     case invalidTask
     case unableToComplete
+    case invalidImage
 }
 
 class NetworkingManager: NetworkingManagerProtocol {
     
+//    static let shared = NetworkingManager()
+//    private init() {}
+        
     // URLSession version:
     func getDataFromWiki(query: String, completion: @escaping(Result<WikiModel, NetworkingError>)->Void) {
         
         let endpoint = Constants.wikiBaseURL + query
-
+        
         guard let encodedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
               let url = URL(string: encodedEndpoint) else {
             print("bad url")
@@ -79,11 +85,50 @@ class NetworkingManager: NetworkingManagerProtocol {
         task.resume()
     }
     
+    func uploadImage(image: UIImage?, completion: @escaping(Result<String, NetworkingError>) -> Void) {
+        /// forkey - key get from https://api.imgur.com/endpoints/image#image-upload
+        guard let image = image, let imageProperties = ImageProperties(with: image, forkey: "image") else {
+            completion(.failure(.invalidImage))
+            return
+        }
+        
+        guard let url = URL(string: Constants.imgurBaseURL) else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        /// create headers from https://api.imgur.com/oauth2/addclient
+        let httpHeaders = ["Authorization": "Client-ID 7384944506e4c55"]
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = httpHeaders /// pass id authorization
+        request.httpBody = imageProperties.data /// pass request body
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard error == nil,
+                  let response = response as? HTTPURLResponse,
+                  let data = data else { return }
+            
+            print("Response: \(response.statusCode)")
+            
+            do {
+                let link = try JSONDecoder().decode(ImgurModel.self, from: data)
+                let json = try JSONSerialization.jsonObject(with: data, options: [])
+                print(json)
+                print("Link: \(link)")
+                completion(.success(link.data.link))
+            } catch {
+                completion(.failure(.unableToComplete))
+            }
+        }
+        task.resume()
+    }
+    
     // Alamofire version
     func requestInfo(query: String, completion: @escaping(Result<WikiModel, Error>) -> Void) {
         
         guard let endpoint = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
-
+        
         let parameters: [String:String] = [
             "format" : "json",
             "action" : "query",
@@ -108,6 +153,6 @@ class NetworkingManager: NetworkingManagerProtocol {
                 case .failure(let error):
                     completion(.failure(error))
                 }
-        }
+            }
     }
 }

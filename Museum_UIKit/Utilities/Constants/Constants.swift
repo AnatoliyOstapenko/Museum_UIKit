@@ -15,7 +15,7 @@ enum Constants {
     
     static let serpapiBaseURL = "https://serpapi.com/search.json?engine=google_lens&key=😎&url=https://www.vangoghstudio.com/Files/6/102000/102147/PageHomeSlideShows/w1170_900501_en.jpg"
     
-    static let imgurBaseURL = "https://api.imgur.com/endpoints/image#image-upload"
+    static let imgurBaseURL = "https://api.imgur.com/3/image"
 }
 
 struct AlertItem {
@@ -39,4 +39,6 @@ struct AlertContext {
     
     static let unableToComplete = AlertItem(title: "Server Error",
                                             message: "Unable to complete your request at this time, please try again later or contact the support")
+    static let invalidImage = AlertItem(title: "Image Error",
+                                        message: "Unable to upload your image at this time, please try again or contact the support")
 }

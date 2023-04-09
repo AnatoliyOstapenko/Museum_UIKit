@@ -73,27 +73,35 @@ class FirebaseViewController: UIViewController, UIImagePickerControllerDelegate,
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage, let imageData = image.pngData() else { return }
-        // upload image to firebase
-        let reference = storage.child("images/file.png")
         
-        reference.putData(imageData) { _, error in
-            guard error == nil else {
-                print("failed to upload")
-                return
-            }
-            // get download url
-            reference.downloadURL { url, error in
-                guard error == nil, let url = url else {
-                    print("failed to download")
-                    return
-                }
-                
-                let stringURL = url.absoluteString
-//                print("URL String download: \(stringURL)")
-                // save download url to defaults
-                UserDefaults.standard.set(stringURL, forKey: "url")
-            }
-        }
+//        NetworkingManager.shared.uploadImage(image: image) { result in
+//            switch result {
+//            case .success(let success):
+//                print(success)
+//            case .failure(let failure):
+//                print(failure)
+//            }
+//        }
+        
+        // upload image to firebase
+//        let reference = storage.child("images/file.png")
+//
+//        reference.putData(imageData) { _, error in
+//            guard error == nil else {
+//                print("failed to upload")
+//                return
+//            }
+//            // get download url
+//            reference.downloadURL { url, error in
+//                guard error == nil, let url = url else {
+//                    print("failed to download")
+//                    return
+//                }
+//
+//                let stringURL = url.absoluteString
+//                UserDefaults.standard.set(stringURL, forKey: "url")
+//            }
+//        }
         
         
         imagePickerVC.dismiss(animated: true)
