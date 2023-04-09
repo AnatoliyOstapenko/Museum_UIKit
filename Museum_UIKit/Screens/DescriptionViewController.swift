@@ -27,41 +27,25 @@ class DescriptionViewController: UIViewController {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 1
         label.numberOfLines = 0
-        label.textAlignment = .left
+        label.textAlignment = .center
         return label
     }()
     
     private lazy var wikiButton: UIButton = {
         var configuration = UIButton.Configuration.tinted()
-        configuration.title = "Wikipedia"
-        configuration.image = UIImage(named: "wikiLogo")
-        configuration.imagePadding = 4
-        configuration.baseBackgroundColor = .systemCyan
-        configuration.baseForegroundColor = .systemCyan
+        var container = AttributeContainer()
 
-        let button = UIButton(configuration: configuration)
-        return button
-    }()
-    
-    private lazy var cancelButton: UIButton = {
-        var configuration = UIButton.Configuration.tinted()
-        configuration.image = UIImage(systemName: "chevron.backward.circle")
-        configuration.imagePadding = 4
+        container.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        configuration.attributedTitle = AttributedString("Wikipedia", attributes: container)
+        configuration.image = UIImage(named: "wikiLogo")?.resized(to: CGSize(width: 30, height: 30))
+        configuration.buttonSize = .large
+        configuration.imagePadding = 10
         configuration.baseBackgroundColor = .systemRed
         configuration.baseForegroundColor = .systemRed
 
-        
-        let button = UIButton(configuration: configuration, primaryAction: UIAction { _ in
-            self.dismiss(animated: true)
-        })
+        let button = UIButton(configuration: configuration)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
-    }()
-    
-    private let container: UIStackView = {
-        let container = UIStackView()
-        container.axis = .vertical
-        container.distribution = .fillEqually
-        return container
     }()
 
     override func viewDidLoad() {
@@ -71,28 +55,42 @@ class DescriptionViewController: UIViewController {
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addAllSubviews(descriptionView, descriptionLabel, container)
-        container.addArrangedSubview(wikiButton)
-        container.addArrangedSubview(cancelButton)
+        view.addAllSubviews(descriptionView, descriptionLabel, wikiButton)
         descriptionLabel.backgroundColor = .clear
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
+            self.dismiss(animated: true)
+        })
+        
+        // MARK: REDO - delete after debugging:
+        descriptionLabel.text = """
+        Essentially, a Terms and Conditions agreement is a contract between your business and the user of your website or app - whether they are an individual or a business. You may see Terms and Conditions agreements referred to as Terms of Service (ToS) or Terms of Use (ToU). There's no practical difference between these terms and companies use them interchangeably.
+        """
+
         descriptionView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(20)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(5)
             make.leading.trailing.equalToSuperview().inset(40)
             make.height.equalTo(view.snp.height).dividedBy(2.5)
         }
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(10)
-            make.top.equalTo(descriptionView.snp.bottom)
-            make.height.equalTo(view.snp.height).dividedBy(3)
+        wikiButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
         }
         
-        container.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().dividedBy(2)
+        descriptionLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(descriptionView.snp.bottom).inset(10)
+            make.bottom.equalTo(wikiButton.snp.top).inset(10)
+        }
+    }
+}
+
+private extension UIImage {
+    func resized(to size: CGSize) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { _ in
+            draw(in: CGRect(origin: .zero, size: size))
         }
     }
 }

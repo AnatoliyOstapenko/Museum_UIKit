@@ -119,7 +119,7 @@ extension RecognitionViewController: CameraViewProtocol {
     
     func setLink(with stringURL: String) {
         print("Lets handling this link: \(stringURL)")
-        self.present(DescriptionViewController(stringURL: stringURL), animated: true)
+        self.present(UINavigationController(rootViewController: DescriptionViewController(stringURL: stringURL)), animated: true)
 //        recognitionView.getIcon(imageString: stringURL)
     }
     

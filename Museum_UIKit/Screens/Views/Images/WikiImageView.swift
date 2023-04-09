@@ -22,7 +22,7 @@ class WikiImageView: UIImageView {
         
         private func configure() {
             image = UIImage(systemName: "photo")
-            tintColor = .white
+            tintColor = .label
             layer.cornerRadius = 10
             contentMode = .scaleAspectFit
         }
