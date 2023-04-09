@@ -31,18 +31,72 @@ class NetworkingManager: NetworkingManagerProtocol {
 //    private init() {}
         
     // URLSession version:
-    func getDataFromWiki(query: String, completion: @escaping(Result<WikiModel, NetworkingError>)->Void) {
+//    func getDataFromWiki(query: String, completion: @escaping(Result<WikiModel, NetworkingError>)->Void) {
+//
+//        let endpoint = Constants.wikiBaseURL + query
+//
+//        guard let encodedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+//              let url = URL(string: encodedEndpoint) else {
+//            print("bad url")
+//            completion(.failure(.invalidURL))
+//            return
+//        }
+//
+//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+//            guard error == nil else {
+//                completion(.failure(.invalidTask))
+//                return
+//            }
+//
+//            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+//                completion(.failure(.invalidResponse))
+//                return
+//            }
+//
+//            guard let data = data else {
+//                completion(.failure(.invalidData))
+//                return
+//            }
+//
+//            do {
+//                let wikiData = try JSONDecoder().decode(WikiAPIModel.self, from: data)
+//                guard let pageID = wikiData.query.pageids.first else { return }
+//                let model = WikiModel(title: wikiData.query.pages[pageID]?.title ?? "",
+//                                      description: wikiData.query.pages[pageID]?.extract ?? "",
+//                                      imageURL: wikiData.query.pages[pageID]?.thumbnail.source ?? "")
+//                completion(.success(model))
+//
+//            } catch {
+//                completion(.failure(.unableToComplete))
+//            }
+//        }
+//        task.resume()
+//    }
+    // Get HTTP response from Wikipedia
+    
+    func getDataFromWiki(query: String, completion: @escaping(Result<WikiModel,NetworkingError>) -> Void) {
+        let stringURL = Constants.wikiBaseURL + query
+        self.request(stringURL: stringURL, expecting: WikiModel.self, completion: completion)
+    }
+    
+    // Get HTTP response from Serpapi server
+    
+    func getDataFromSerpapi(query: String, completion: @escaping(Result<WikiModel,NetworkingError>) -> Void) {
+        let stringURL = Constants.serpapiBaseURL + Password.serpapiKey + query
+        print(stringURL)
+        self.request(stringURL: stringURL, expecting: WikiModel.self, completion: completion)
+    }
+
+    // Generic GET request method
+    
+    private func request<T: Decodable>(stringURL: String, expecting: T.Type, completion: @escaping(Result<T, NetworkingError>) -> Void) {
         
-        let endpoint = Constants.wikiBaseURL + query
-        
-        guard let encodedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: encodedEndpoint) else {
-            print("bad url")
+        guard let endpoint = stringURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: endpoint) else {
             completion(.failure(.invalidURL))
             return
         }
         
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
             guard error == nil else {
                 completion(.failure(.invalidTask))
                 return
@@ -59,16 +113,9 @@ class NetworkingManager: NetworkingManagerProtocol {
             }
             
             do {
-                let wikiData = try JSONDecoder().decode(WikiAPIModel.self, from: data)
-                guard let pageID = wikiData.query.pageids.first else { return }
-                let model = WikiModel(title: wikiData.query.pages[pageID]?.title ?? "",
-                                      description: wikiData.query.pages[pageID]?.extract ?? "",
-                                      imageURL: wikiData.query.pages[pageID]?.thumbnail.source ?? "")
-                completion(.success(model))
-                
-            } catch {
-                completion(.failure(.unableToComplete))
-            }
+                let data = try JSONDecoder().decode(expecting, from: data)
+                completion(.success(data))
+            } catch { completion(.failure(.unableToComplete)) }
         }
         task.resume()
     }
@@ -85,6 +132,7 @@ class NetworkingManager: NetworkingManagerProtocol {
         task.resume()
     }
     
+    // POST photo on Imgur server
     func uploadImage(image: UIImage?, completion: @escaping(Result<String, NetworkingError>) -> Void) {
         /// forkey - key get from https://api.imgur.com/endpoints/image#image-upload
         guard let image = image, let imageProperties = ImageProperties(with: image, forkey: "image") else {
@@ -97,7 +145,7 @@ class NetworkingManager: NetworkingManagerProtocol {
             return
         }
         /// create headers from https://api.imgur.com/oauth2/addclient
-        let httpHeaders = ["Authorization": "Client-ID 7384944506e4c55"]
+        let httpHeaders = ["Authorization": "Client-ID \(Password.imgurKey)"]
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -113,9 +161,6 @@ class NetworkingManager: NetworkingManagerProtocol {
             
             do {
                 let link = try JSONDecoder().decode(ImgurModel.self, from: data)
-                let json = try JSONSerialization.jsonObject(with: data, options: [])
-                print(json)
-                print("Link: \(link)")
                 completion(.success(link.data.link))
             } catch {
                 completion(.failure(.unableToComplete))

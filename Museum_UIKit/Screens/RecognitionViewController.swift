@@ -14,7 +14,6 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
     
     var coordinator: CameraCoordinatorProtocol?
     var presenter: CameraPresnterProtocol?
-    private var alertItem: AlertItem?
     private var wikiModel: WikiModel?
     
     private let recognitionView = WikiImageView(frame: .zero)
@@ -43,11 +42,13 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])  {
-        guard let image = info[.editedImage] as? UIImage, let ciImage = CIImage(image: image) else { return }
-//        guard let testImage = UIImage(named: "imageTest") else { return }
-        presenter?.fetchLink(image: image)
-        //recognizeImage(ciImage)
+        guard let image = info[.editedImage] as? UIImage else { return }
         imagePickerVC.dismiss(animated: true)
+        presenter?.fetchLink(image: image)
+        
+        /// if you need to recognize object by ML:
+//        guard let ciImage = CIImage(image: image) else { return }
+//        recognizeImage(ciImage)
     }
     
     private func recognizeImage(_ ciImage: CIImage) {
@@ -81,10 +82,9 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
         descriptionLabel.backgroundColor = .clear
         
         recognitionView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(20)
-            make.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(view.safeAreaLayoutGuide)
-            make.height.equalTo(view.snp.height).dividedBy(2.2)
+            make.top.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(view.snp.height).dividedBy(2.1)
         }
         
         descriptionLabel.snp.makeConstraints { make in
@@ -104,28 +104,19 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
 }
 
 extension RecognitionViewController: CameraViewProtocol {
-    func setLink(with stringURL: String) {
-        print("Lets handling this link: \(stringURL)")
-        recognitionView.getIcon(imageString: stringURL)
-    }
-    
-    func setErorrs(with errors: NetworkingError) {
-        switch errors {
-        case .invalidURL: alertItem = AlertContext.invalidURL
-        case .invalidResponse: alertItem = AlertContext.invalidResponse
-        case .invalidData: alertItem = AlertContext.invalidData
-        case .invalidTask: alertItem = AlertContext.invalidTask
-        case .unableToComplete: alertItem = AlertContext.unableToComplete
-        case .invalidImage: alertItem = AlertContext.invalidImage
-        }
+    func setAlert(with alertItem: AlertItem?) {
         // Show custom error message if url request fails
-        
-        let alert = UIAlertController(title: self.alertItem?.title,
-                                      message: self.alertItem?.message,
+        let alert = UIAlertController(title: alertItem?.title,
+                                      message: alertItem?.message,
                                       preferredStyle: .alert)
         let ok = UIAlertAction(title: "OK", style: .cancel)
         alert.addAction(ok)
         self.present(alert, animated: true)
+    }
+    
+    func setLink(with stringURL: String) {
+        print("Lets handling this link: \(stringURL)")
+        recognitionView.getIcon(imageString: stringURL)
     }
     
     func setWikiData(with data: WikiModel) {

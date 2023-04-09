@@ -24,7 +24,7 @@ class WikiImageView: UIImageView {
             image = UIImage(systemName: "photo")
             tintColor = .white
             layer.cornerRadius = 10
-            contentMode = .scaleAspectFill
+            contentMode = .scaleAspectFit
         }
         
         func getIcon(imageString: String?) {

@@ -8,7 +8,5 @@ target 'Museum_UIKit' do
   # Pods for Museum_UIKit
   pod 'SnapKit'
   pod 'Alamofire'
-  pod 'Firebase/Core'
-  pod 'Firebase/Storage'
 
 end

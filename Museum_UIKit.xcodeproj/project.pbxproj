@@ -16,8 +16,6 @@
 		F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90835BF29D9F294002A7799 /* UIViews+Ext.swift */; };
 		F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */; };
 		F9549F1129DF3F4F00C1F26C /* WikiImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */; };
-		F9549F1329E0328E00C1F26C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */; };
-		F9549F1529E040C100C1F26C /* FirebaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1429E040C100C1F26C /* FirebaseViewController.swift */; };
 		F9549F2129E0967400C1F26C /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2029E0967400C1F26C /* Password.swift */; };
 		F9549F2329E1DA7800C1F26C /* ImageProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2229E1DA7800C1F26C /* ImageProperties.swift */; };
 		F9549F2529E1E66700C1F26C /* ImgurModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2429E1E66700C1F26C /* ImgurModel.swift */; };
@@ -46,8 +44,6 @@
 		F90835BF29D9F294002A7799 /* UIViews+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViews+Ext.swift"; sourceTree = "<group>"; };
 		F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImageView.swift; sourceTree = "<group>"; };
 		F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImagePresenter.swift; sourceTree = "<group>"; };
-		F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F9549F1429E040C100C1F26C /* FirebaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseViewController.swift; sourceTree = "<group>"; };
 		F9549F2029E0967400C1F26C /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		F9549F2229E1DA7800C1F26C /* ImageProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProperties.swift; sourceTree = "<group>"; };
 		F9549F2429E1E66700C1F26C /* ImgurModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImgurModel.swift; sourceTree = "<group>"; };
@@ -171,7 +167,6 @@
 				F9598FCF29D702B2004F5E00 /* Assets.xcassets */,
 				F9598FD129D702B2004F5E00 /* LaunchScreen.storyboard */,
 				F9598FD429D702B2004F5E00 /* Info.plist */,
-				F9549F1229E0328E00C1F26C /* GoogleService-Info.plist */,
 				F9598FCC29D702B1004F5E00 /* Museum_UIKit.xcdatamodeld */,
 			);
 			path = Museum_UIKit;
@@ -200,7 +195,6 @@
 			isa = PBXGroup;
 			children = (
 				F9598FC729D702B1004F5E00 /* CameraViewController.swift */,
-				F9549F1429E040C100C1F26C /* FirebaseViewController.swift */,
 				F985413F29DADD4A00284A81 /* RecognitionViewController.swift */,
 				F985413B29D9F85400284A81 /* Views */,
 			);
@@ -303,7 +297,6 @@
 			files = (
 				F9598FD329D702B2004F5E00 /* LaunchScreen.storyboard in Resources */,
 				F9598FD029D702B2004F5E00 /* Assets.xcassets in Resources */,
-				F9549F1329E0328E00C1F26C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,7 +357,6 @@
 				F9598FDD29D72D82004F5E00 /* CameraCoordinator.swift in Sources */,
 				F90165E429DDE3C300AA11CD /* WikiModel.swift in Sources */,
 				F9549F2129E0967400C1F26C /* Password.swift in Sources */,
-				F9549F1529E040C100C1F26C /* FirebaseViewController.swift in Sources */,
 				F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */,
 				F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */,
 				F90165DA29DDD4E800AA11CD /* NetworkingManager.swift in Sources */,
