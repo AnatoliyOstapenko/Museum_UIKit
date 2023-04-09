@@ -9,8 +9,12 @@ import UIKit
 
 class DescriptionViewController: UIViewController {
     
-    let stringURL: String
+    var presenter: DescriptionPresenterProtocol?
+    var coordinator: CameraCoordinatorProtocol?
     
+    private let stringURL: String?
+    private var wikiModel: WikiModel?
+
     init(stringURL: String) {
         self.stringURL = stringURL
         super.init(nibName: nil, bundle: nil)
@@ -40,8 +44,8 @@ class DescriptionViewController: UIViewController {
         configuration.image = UIImage(named: "wikiLogo")?.resized(to: CGSize(width: 30, height: 30))
         configuration.buttonSize = .large
         configuration.imagePadding = 10
-        configuration.baseBackgroundColor = .systemRed
-        configuration.baseForegroundColor = .systemRed
+        configuration.baseBackgroundColor = .systemGreen
+        configuration.baseForegroundColor = .systemGreen
 
         let button = UIButton(configuration: configuration)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
@@ -51,6 +55,7 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        presenter?.getStringURL(stringURL: self.stringURL ?? "")
     }
     
     private func configureUI() {
@@ -84,6 +89,25 @@ class DescriptionViewController: UIViewController {
             make.top.equalTo(descriptionView.snp.bottom).inset(10)
             make.bottom.equalTo(wikiButton.snp.top).inset(10)
         }
+    }
+}
+
+extension DescriptionViewController: DescriptionViewProtocol {
+    func setAlert(with alertItem: AlertItem?) {
+        if alertItem != nil {
+            let alert = UIAlertController(title: alertItem?.title,
+                                          message: alertItem?.message,
+                                          preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
+        }
+    }
+    
+    func setSerpapiModel(model: WikiModel) {
+        self.descriptionView.fetchImage(imageString: model.imageURL)
+        self.descriptionLabel.text = model.title
+        print("Link for next step: \(model.description)")
     }
 }
 

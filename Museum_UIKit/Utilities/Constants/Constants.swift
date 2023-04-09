@@ -13,7 +13,7 @@ enum Constants {
     /// delete &exintro= if you need more info from  your query
     static let wikiBaseURL = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&pithumbsize=500&format=json&explaintext=&indexpageids&exintro=&titles="
     
-    static let serpapiBaseURL = "https://serpapi.com/search.json?engine=google_lens&key=😎&url=https://www.vangoghstudio.com/Files/6/102000/102147/PageHomeSlideShows/w1170_900501_en.jpg"
+    static let serpapiBaseURL = "https://serpapi.com/search.json?engine=google_lens&key="
     
     static let imgurBaseURL = "https://api.imgur.com/3/image"
 }

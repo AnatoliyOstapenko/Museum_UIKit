@@ -27,13 +27,13 @@ class WikiImageView: UIImageView {
             contentMode = .scaleAspectFit
         }
         
-        func getIcon(imageString: String?) {
+        func fetchImage(imageString: String?) {
             presenter.getImage(imageString: imageString ?? "")
         }
     }
 
 extension WikiImageView: WikiImageViewProtocol {
-        func setImage(image: UIImage) {
-            self.image = image
-        }
+    func setImage(image: UIImage) {
+        self.image = image
+    }
 }

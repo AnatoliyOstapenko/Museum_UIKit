@@ -11,4 +11,5 @@ struct WikiModel: Decodable {
     let title: String
     let description: String
     let imageURL: String
+    let link: String
 }

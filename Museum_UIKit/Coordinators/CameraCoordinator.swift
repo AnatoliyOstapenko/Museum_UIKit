@@ -7,7 +7,9 @@
 
 import UIKit
 
-protocol CameraCoordinatorProtocol: Coordinator {}
+protocol CameraCoordinatorProtocol: Coordinator {
+    func goToDescription(_ stringURL: String, vc: UIViewController)
+}
 
 class CameraCoordinator: CameraCoordinatorProtocol {
     var childCoordinator: [Coordinator]?
@@ -26,9 +28,15 @@ class CameraCoordinator: CameraCoordinatorProtocol {
         navigationController.pushViewController(view, animated: true)
     }
     
-    func goToDescription() {
-        
+    func goToDescription(_ stringURL: String, vc: UIViewController) {
+        let view = DescriptionViewController(stringURL: stringURL)
+        let manager = NetworkingManager()
+        let presenter = DescriptionPresenter(view: view, networkManager: manager)
+        view.presenter = presenter
+        view.coordinator = self
+        if let viewController = vc as? RecognitionViewController {
+            viewController.present(UINavigationController(rootViewController: view), animated: true)
+        }
     }
-    
     
 }

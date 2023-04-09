@@ -11,6 +11,7 @@ import UIKit
 
 protocol NetworkingManagerProtocol {
     func getDataFromWiki(query: String, completion: @escaping (Result<WikiModel, NetworkingError>)->Void)
+    func getDataFromSerpapi(query: String, completion: @escaping(Result<SerpapiAPIModel, NetworkingError>) -> Void)
     func requestInfo(query: String, completion: @escaping(Result<WikiModel, Error>) -> Void)
     func downloadImage(imageURL: String, completion: @escaping(UIImage?) -> Void)
     func uploadImage(image: UIImage?, completion: @escaping(Result<String, NetworkingError>) -> Void)
@@ -27,51 +28,6 @@ enum NetworkingError: Error {
 
 class NetworkingManager: NetworkingManagerProtocol {
     
-//    static let shared = NetworkingManager()
-//    private init() {}
-        
-    // URLSession version:
-//    func getDataFromWiki(query: String, completion: @escaping(Result<WikiModel, NetworkingError>)->Void) {
-//
-//        let endpoint = Constants.wikiBaseURL + query
-//
-//        guard let encodedEndpoint = endpoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-//              let url = URL(string: encodedEndpoint) else {
-//            print("bad url")
-//            completion(.failure(.invalidURL))
-//            return
-//        }
-//
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//            guard error == nil else {
-//                completion(.failure(.invalidTask))
-//                return
-//            }
-//
-//            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-//                completion(.failure(.invalidResponse))
-//                return
-//            }
-//
-//            guard let data = data else {
-//                completion(.failure(.invalidData))
-//                return
-//            }
-//
-//            do {
-//                let wikiData = try JSONDecoder().decode(WikiAPIModel.self, from: data)
-//                guard let pageID = wikiData.query.pageids.first else { return }
-//                let model = WikiModel(title: wikiData.query.pages[pageID]?.title ?? "",
-//                                      description: wikiData.query.pages[pageID]?.extract ?? "",
-//                                      imageURL: wikiData.query.pages[pageID]?.thumbnail.source ?? "")
-//                completion(.success(model))
-//
-//            } catch {
-//                completion(.failure(.unableToComplete))
-//            }
-//        }
-//        task.resume()
-//    }
     // Get HTTP response from Wikipedia
     
     func getDataFromWiki(query: String, completion: @escaping(Result<WikiModel,NetworkingError>) -> Void) {
@@ -81,10 +37,10 @@ class NetworkingManager: NetworkingManagerProtocol {
     
     // Get HTTP response from Serpapi server
     
-    func getDataFromSerpapi(query: String, completion: @escaping(Result<WikiModel,NetworkingError>) -> Void) {
-        let stringURL = Constants.serpapiBaseURL + Password.serpapiKey + query
+    func getDataFromSerpapi(query: String, completion: @escaping(Result<SerpapiAPIModel, NetworkingError>) -> Void) {
+        let stringURL = Constants.serpapiBaseURL + Password.serpapiKey + "&url=" + query
         print(stringURL)
-        self.request(stringURL: stringURL, expecting: WikiModel.self, completion: completion)
+        self.request(stringURL: stringURL, expecting: SerpapiAPIModel.self, completion: completion)
     }
 
     // Generic GET request method
@@ -115,6 +71,7 @@ class NetworkingManager: NetworkingManagerProtocol {
             do {
                 let data = try JSONDecoder().decode(expecting, from: data)
                 completion(.success(data))
+                print(data)
             } catch { completion(.failure(.unableToComplete)) }
         }
         task.resume()
@@ -193,7 +150,7 @@ class NetworkingManager: NetworkingManagerProtocol {
                     guard let pageID = result.query.pageids.first else { return }
                     let model = WikiModel(title: result.query.pages[pageID]?.title ?? "",
                                           description: result.query.pages[pageID]?.extract ?? "",
-                                          imageURL: result.query.pages[pageID]?.thumbnail.source ?? "")
+                                          imageURL: result.query.pages[pageID]?.thumbnail.source ?? "", link: "")
                     completion(.success(model))
                 case .failure(let error):
                     completion(.failure(error))
