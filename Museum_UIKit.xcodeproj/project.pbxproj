@@ -22,6 +22,7 @@
 		F9549F2729E2F01C00C1F26C /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2629E2F01C00C1F26C /* DescriptionViewController.swift */; };
 		F9549F2929E3261B00C1F26C /* DescriptionPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2829E3261B00C1F26C /* DescriptionPresenter.swift */; };
 		F9549F2B29E3277D00C1F26C /* SerpapiAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2A29E3277D00C1F26C /* SerpapiAPIModel.swift */; };
+		F9549F2D29E44E5100C1F26C /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2C29E44E5100C1F26C /* SpinnerViewController.swift */; };
 		F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC329D702B1004F5E00 /* AppDelegate.swift */; };
 		F9598FC629D702B1004F5E00 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC529D702B1004F5E00 /* SceneDelegate.swift */; };
 		F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FC729D702B1004F5E00 /* CameraViewController.swift */; };
@@ -53,6 +54,7 @@
 		F9549F2629E2F01C00C1F26C /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		F9549F2829E3261B00C1F26C /* DescriptionPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionPresenter.swift; sourceTree = "<group>"; };
 		F9549F2A29E3277D00C1F26C /* SerpapiAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerpapiAPIModel.swift; sourceTree = "<group>"; };
+		F9549F2C29E44E5100C1F26C /* SpinnerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		F9598FC029D702B1004F5E00 /* Museum_UIKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Museum_UIKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9598FC329D702B1004F5E00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9598FC529D702B1004F5E00 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,14 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		F9549F2E29E44E5B00C1F26C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F9549F2C29E44E5100C1F26C /* SpinnerViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		F9598FB729D702B1004F5E00 = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +242,7 @@
 			children = (
 				F985413C29D9F86100284A81 /* Buttons */,
 				F9549F0D29DF3ECB00C1F26C /* Images */,
+				F9549F2E29E44E5B00C1F26C /* Controllers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -362,6 +373,7 @@
 				F9549F2929E3261B00C1F26C /* DescriptionPresenter.swift in Sources */,
 				F9598FC829D702B1004F5E00 /* CameraViewController.swift in Sources */,
 				F90165D629DDC20B00AA11CD /* Constants.swift in Sources */,
+				F9549F2D29E44E5100C1F26C /* SpinnerViewController.swift in Sources */,
 				F985413E29DA06B400284A81 /* Inceptionv3.mlmodel in Sources */,
 				F985414029DADD4A00284A81 /* RecognitionViewController.swift in Sources */,
 				F9598FDD29D72D82004F5E00 /* CameraCoordinator.swift in Sources */,

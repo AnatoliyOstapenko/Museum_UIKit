@@ -78,7 +78,8 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
     
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addAllSubviews(recognitionView, descriptionLabel)
+        [recognitionView, descriptionLabel].forEach(view.addSubview)
+//        view.addAllSubviews(recognitionView, descriptionLabel)
         descriptionLabel.backgroundColor = .clear
         
         recognitionView.snp.makeConstraints { make in

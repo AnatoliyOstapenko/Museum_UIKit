@@ -25,9 +25,28 @@ class DescriptionViewController: UIViewController {
     }
     
     private let descriptionView = WikiImageView(frame: .zero)
+    
+    private lazy var container: UIStackView = {
+        let container = UIStackView()
+        container.axis = .vertical
+        container.distribution = .equalSpacing
+        return container
+    }()
+    
+    private lazy var subtitle: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 28, weight: .bold)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 1
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
 
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.tintColor = .secondaryLabel
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 1
         label.numberOfLines = 0
@@ -44,26 +63,49 @@ class DescriptionViewController: UIViewController {
         configuration.image = UIImage(named: "wikiLogo")?.resized(to: CGSize(width: 30, height: 30))
         configuration.buttonSize = .large
         configuration.imagePadding = 10
-        configuration.baseBackgroundColor = .systemGreen
-        configuration.baseForegroundColor = .systemGreen
+        configuration.baseBackgroundColor = .label
+        configuration.baseForegroundColor = .label
 
         let button = UIButton(configuration: configuration)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
     }()
-
+    
+    private lazy var spinner: SpinnerViewController = {
+        let spinner = SpinnerViewController()
+        return spinner
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        presenter?.getStringURL(stringURL: self.stringURL ?? "")
+        activateSpinnerView()
+        DispatchQueue.global(qos: .utility).async {
+            self.presenter?.getStringURL(stringURL: self.stringURL ?? "")
+        }
     }
     
+    private func activateSpinnerView() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+
+    private func deactivateSpinnerView() {
+        DispatchQueue.main.async {
+            self.spinner.willMove(toParent: nil)
+            self.spinner.view.removeFromSuperview()
+            self.spinner.removeFromParent()
+        }
+    }
+
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        view.addAllSubviews(descriptionView, descriptionLabel, wikiButton)
+        [descriptionView, descriptionLabel, wikiButton].forEach(view.addSubview)
         descriptionLabel.backgroundColor = .clear
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
+        navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
             self.dismiss(animated: true)
         })
         
@@ -94,6 +136,7 @@ class DescriptionViewController: UIViewController {
 
 extension DescriptionViewController: DescriptionViewProtocol {
     func setAlert(with alertItem: AlertItem?) {
+        deactivateSpinnerView()
         if alertItem != nil {
             let alert = UIAlertController(title: alertItem?.title,
                                           message: alertItem?.message,
@@ -105,6 +148,7 @@ extension DescriptionViewController: DescriptionViewProtocol {
     }
     
     func setSerpapiModel(model: WikiModel) {
+        deactivateSpinnerView()
         self.descriptionView.fetchImage(imageString: model.imageURL)
         self.descriptionLabel.text = model.title
         print("Link for next step: \(model.description)")

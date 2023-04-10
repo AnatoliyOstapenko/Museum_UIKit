@@ -77,7 +77,8 @@ class CameraViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .black
         view.layer.addSublayer(previewLayer)
-        view.addAllSubviews(previewView, shutterButton, photoButton, boltModeButton)
+        [previewView, shutterButton, photoButton, boltModeButton].forEach(view.addSubview)
+//        view.addAllSubviews(previewView, shutterButton, photoButton, boltModeButton)
         
         photoButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(50)
