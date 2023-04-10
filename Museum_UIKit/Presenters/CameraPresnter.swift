@@ -9,15 +9,15 @@ import UIKit
 
 // Output
 protocol CameraViewProtocol: AnyObject {
-//    func setWikiData(with data: WikiModel)
     func setLink(with stringURL: String)
     func setAlert(with alertItem: AlertItem?)
+    func setSerpapiModel(model: WikiModel)
 }
 // Input
 protocol CameraPresnterProtocol: AnyObject {
     init (view: CameraViewProtocol, manager: NetworkingManagerProtocol)
-//    func getWikiData(query: String)
     func fetchLink(image: UIImage?)
+    func getStringURL(stringURL: String)
 }
 
 class CameraPresnter: CameraPresnterProtocol {
@@ -30,19 +30,30 @@ class CameraPresnter: CameraPresnterProtocol {
         self.manager = manager
     }
     
-//    func getWikiData(query: String) {
-//        manager.getDataFromWiki(query: query) { [weak self] result in
-//            guard let self = self else { return }
-//            DispatchQueue.main.async {
-//                switch result {
-//                case .success(let success):
-//                    self.view?.setWikiData(with: success)
-//                case .failure(let failure):
-//                    self.handlingError(error: failure)
-//                }
-//            }
-//        }
-//    }
+    // Get information from Serpari server
+
+    func getStringURL(stringURL: String) {
+        manager.getDataFromSerpapi(query: stringURL) { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let success):
+                    
+                    let wikiModel = WikiModel(title: success.request[0].title,
+                                              description: success.request[0].subtitle ?? "",
+                                              imageURL: success.request[0].images[0].stringURL ?? "",
+                                              link: success.request[0].link)
+                    
+                    
+                    self.view?.setSerpapiModel(model: wikiModel)
+                case .failure(let error):
+                    self.handlingError(error: error)
+                }
+            }
+        }
+    }
+    
+    // Upload image on Imgur and get direct link of picture
     
     func fetchLink(image: UIImage?) {
         manager.uploadImage(image: image) { [weak self] result in
@@ -57,7 +68,7 @@ class CameraPresnter: CameraPresnterProtocol {
             }
         }
     }
-    
+    // Handling errors
     private func handlingError(error: NetworkingError) {
         switch error {
         case .invalidURL: self.alertItem = AlertContext.invalidURL
@@ -69,18 +80,4 @@ class CameraPresnter: CameraPresnterProtocol {
         }
         self.view?.setAlert(with: self.alertItem)
     }
-    
-    // Alamofire request
-    
-    //        manager.requestInfo(query: query) { [weak self] result in
-    //            guard let self = self else { return }
-    //            DispatchQueue.main.async {
-    //                switch result {
-    //                case .success(let data):
-    //                    self.view?.setWikiData(with: data)
-    //                case .failure(let error):
-    //                    print("error: \(error)")
-    //                }
-    //            }
-    //        }
 }

@@ -36,6 +36,11 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
         return label
     }()
     
+    private lazy var spinner: SpinnerViewController = {
+        let spinner = SpinnerViewController()
+        return spinner
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
@@ -44,42 +49,35 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])  {
         guard let image = info[.editedImage] as? UIImage else { return }
         imagePickerVC.dismiss(animated: true)
-        presenter?.fetchLink(image: image)
         
+        activateSpinnerView()
+        DispatchQueue.global(qos: .utility).async {
+            self.presenter?.fetchLink(image: image)
+        }
+
         /// if you need to recognize object by ML:
 //        guard let ciImage = CIImage(image: image) else { return }
 //        recognizeImage(ciImage)
     }
     
-    private func recognizeImage(_ ciImage: CIImage) {
-        guard let model = try? VNCoreMLModel(for: Inceptionv3(configuration: MLModelConfiguration()).model) else {
-            return
-        }
-        // Handler
-        let handler = VNImageRequestHandler(ciImage: ciImage)
-        // Request
-        let request = VNCoreMLRequest(model: model) { [weak self] request, error in
-            guard let self = self, let result = request.results?.first as? VNClassificationObservation else {
-                print("Request fails")
-                return
-            }
-            
-            guard let recognizedText = result.identifier.components(separatedBy: ",").first else { return }
-//            self.presenter?.getWikiData(query: recognizedText)
-        }
-        
-        // Process request
-        do {
-            try handler.perform([request])
-        } catch {
-            print(error)
+    private func activateSpinnerView() {
+        addChild(spinner)
+        spinner.view.frame = view.frame
+        view.addSubview(spinner.view)
+        spinner.didMove(toParent: self)
+    }
+
+    private func deactivateSpinnerView() {
+        DispatchQueue.main.async {
+            self.spinner.willMove(toParent: nil)
+            self.spinner.view.removeFromSuperview()
+            self.spinner.removeFromParent()
         }
     }
-    
+
     private func configureUI() {
         view.backgroundColor = .systemBackground
         [recognitionView, descriptionLabel].forEach(view.addSubview)
-//        view.addAllSubviews(recognitionView, descriptionLabel)
         descriptionLabel.backgroundColor = .clear
         
         recognitionView.snp.makeConstraints { make in
@@ -102,9 +100,41 @@ class RecognitionViewController: UIViewController, UIImagePickerControllerDelega
     @objc private func cameraTapped() {
         present(imagePickerVC, animated: true)
     }
+    
+    // MARK: - May be uncommented in the case of a high-end ML model
+    
+//    private func recognizeImage(_ ciImage: CIImage) {
+//        guard let model = try? VNCoreMLModel(for: Inceptionv3(configuration: MLModelConfiguration()).model) else {
+//            return
+//        }
+//        // Handler
+//        let handler = VNImageRequestHandler(ciImage: ciImage)
+//        // Request
+//        let request = VNCoreMLRequest(model: model) { [weak self] request, error in
+//            guard let self = self, let result = request.results?.first as? VNClassificationObservation else {
+//                print("Request fails")
+//                return
+//            }
+//
+//            guard let recognizedText = result.identifier.components(separatedBy: ",").first else { return }
+//            self.presenter?.getWikiData(query: recognizedText)
+//        }
+//
+//        // Process request
+//        do {
+//            try handler.perform([request])
+//        } catch {
+//            print(error)
+//        }
+//    }
 }
 
 extension RecognitionViewController: CameraViewProtocol {
+    func setSerpapiModel(model: WikiModel) {
+        deactivateSpinnerView()
+        coordinator?.goToDescription(model, vc: self)
+    }
+    
     
     func setAlert(with alertItem: AlertItem?) {
         // Show custom error message if url request fails
@@ -119,15 +149,8 @@ extension RecognitionViewController: CameraViewProtocol {
     }
     
     func setLink(with stringURL: String) {
-        print("Lets handling this link: \(stringURL)")
-        coordinator?.goToDescription(stringURL, vc: self)
-//        self.present(UINavigationController(rootViewController: DescriptionViewController(stringURL: stringURL)), animated: true)
-//        recognitionView.getIcon(imageString: stringURL)
+        DispatchQueue.global(qos: .utility).async {
+            self.presenter?.getStringURL(stringURL: stringURL)
+        }
     }
-    
-//    func setWikiData(with data: WikiModel) {
-//        self.title = data.title
-//        descriptionLabel.text = data.description
-//        recognitionView.getIcon(imageString: data.imageURL)
-//    }
 }

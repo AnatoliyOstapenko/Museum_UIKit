@@ -13,7 +13,6 @@
 		F90165DC29DDD61300AA11CD /* WikiAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */; };
 		F90165E129DDE31700AA11CD /* CameraPresnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165E029DDE31700AA11CD /* CameraPresnter.swift */; };
 		F90165E429DDE3C300AA11CD /* WikiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165E329DDE3C300AA11CD /* WikiModel.swift */; };
-		F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90835BF29D9F294002A7799 /* UIViews+Ext.swift */; };
 		F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */; };
 		F9549F1129DF3F4F00C1F26C /* WikiImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */; };
 		F9549F2129E0967400C1F26C /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2029E0967400C1F26C /* Password.swift */; };
@@ -45,7 +44,6 @@
 		F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiAPIModel.swift; sourceTree = "<group>"; };
 		F90165E029DDE31700AA11CD /* CameraPresnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresnter.swift; sourceTree = "<group>"; };
 		F90165E329DDE3C300AA11CD /* WikiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiModel.swift; sourceTree = "<group>"; };
-		F90835BF29D9F294002A7799 /* UIViews+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViews+Ext.swift"; sourceTree = "<group>"; };
 		F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImageView.swift; sourceTree = "<group>"; };
 		F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImagePresenter.swift; sourceTree = "<group>"; };
 		F9549F2029E0967400C1F26C /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
@@ -220,19 +218,10 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
-		F985413929D9F82700284A81 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				F90835BF29D9F294002A7799 /* UIViews+Ext.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		F985413A29D9F83700284A81 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				F90165DD29DDDB8300AA11CD /* Constants */,
-				F985413929D9F82700284A81 /* Extensions */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -380,7 +369,6 @@
 				F90165E429DDE3C300AA11CD /* WikiModel.swift in Sources */,
 				F9549F2129E0967400C1F26C /* Password.swift in Sources */,
 				F9598FC429D702B1004F5E00 /* AppDelegate.swift in Sources */,
-				F90835C029D9F294002A7799 /* UIViews+Ext.swift in Sources */,
 				F90165DA29DDD4E800AA11CD /* NetworkingManager.swift in Sources */,
 				F9549F2329E1DA7800C1F26C /* ImageProperties.swift in Sources */,
 				F90165E129DDE31700AA11CD /* CameraPresnter.swift in Sources */,

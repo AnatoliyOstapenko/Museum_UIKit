@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CameraCoordinatorProtocol: Coordinator {
-    func goToDescription(_ stringURL: String, vc: UIViewController)
+    func goToDescription(_ model: WikiModel, vc: UIViewController)
 }
 
 class CameraCoordinator: CameraCoordinatorProtocol {
@@ -28,11 +28,8 @@ class CameraCoordinator: CameraCoordinatorProtocol {
         navigationController.pushViewController(view, animated: true)
     }
     
-    func goToDescription(_ stringURL: String, vc: UIViewController) {
-        let view = DescriptionViewController(stringURL: stringURL)
-        let manager = NetworkingManager()
-        let presenter = DescriptionPresenter(view: view, networkManager: manager)
-        view.presenter = presenter
+    func goToDescription(_ model: WikiModel, vc: UIViewController) {
+        let view = DescriptionViewController(wikiModel: model)
         view.coordinator = self
         if let viewController = vc as? RecognitionViewController {
             viewController.present(UINavigationController(rootViewController: view), animated: true)

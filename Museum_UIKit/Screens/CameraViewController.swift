@@ -78,7 +78,6 @@ class CameraViewController: UIViewController {
         view.backgroundColor = .black
         view.layer.addSublayer(previewLayer)
         [previewView, shutterButton, photoButton, boltModeButton].forEach(view.addSubview)
-//        view.addAllSubviews(previewView, shutterButton, photoButton, boltModeButton)
         
         photoButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(50)
@@ -100,7 +99,6 @@ class CameraViewController: UIViewController {
     }
 
     @objc private func takePhoto() {
-        print("photo was taken")
         self.takenPicture = true
         
         Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in

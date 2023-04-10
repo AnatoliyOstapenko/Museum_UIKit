@@ -9,14 +9,11 @@ import UIKit
 
 class DescriptionViewController: UIViewController {
     
-    var presenter: DescriptionPresenterProtocol?
     var coordinator: CameraCoordinatorProtocol?
-    
-    private let stringURL: String?
-    private var wikiModel: WikiModel?
+    private var wikiModel: WikiModel
 
-    init(stringURL: String) {
-        self.stringURL = stringURL
+    init(wikiModel: WikiModel) {
+        self.wikiModel = wikiModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,31 +23,26 @@ class DescriptionViewController: UIViewController {
     
     private let descriptionView = WikiImageView(frame: .zero)
     
-    private lazy var container: UIStackView = {
-        let container = UIStackView()
-        container.axis = .vertical
-        container.distribution = .equalSpacing
-        return container
-    }()
-    
-    private lazy var subtitle: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 28, weight: .bold)
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 1
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.text = Constants.titleText
         return label
     }()
 
-    private lazy var descriptionLabel: UILabel = {
+    private lazy var subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
-        label.tintColor = .secondaryLabel
+        label.font = .systemFont(ofSize: 18, weight: .medium)
+        label.textColor = .secondaryLabel
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 1
         label.numberOfLines = 0
         label.textAlignment = .center
+        label.text = Constants.descriptionText
         return label
     }()
     
@@ -70,49 +62,26 @@ class DescriptionViewController: UIViewController {
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
     }()
-    
-    private lazy var spinner: SpinnerViewController = {
-        let spinner = SpinnerViewController()
-        return spinner
-    }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        activateSpinnerView()
-        DispatchQueue.global(qos: .utility).async {
-            self.presenter?.getStringURL(stringURL: self.stringURL ?? "")
-        }
+        updateUI()
     }
     
-    private func activateSpinnerView() {
-        addChild(spinner)
-        spinner.view.frame = view.frame
-        view.addSubview(spinner.view)
-        spinner.didMove(toParent: self)
+    private func updateUI() {
+        self.descriptionView.fetchImage(imageString: wikiModel.imageURL)
+        self.titleLabel.text = wikiModel.title
+        self.subtitleLabel.text = wikiModel.description
     }
-
-    private func deactivateSpinnerView() {
-        DispatchQueue.main.async {
-            self.spinner.willMove(toParent: nil)
-            self.spinner.view.removeFromSuperview()
-            self.spinner.removeFromParent()
-        }
-    }
-
+    
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        [descriptionView, descriptionLabel, wikiButton].forEach(view.addSubview)
-        descriptionLabel.backgroundColor = .clear
+        [descriptionView, titleLabel, subtitleLabel, wikiButton].forEach(view.addSubview)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
             self.dismiss(animated: true)
         })
-        
-        // MARK: REDO - delete after debugging:
-        descriptionLabel.text = """
-        Essentially, a Terms and Conditions agreement is a contract between your business and the user of your website or app - whether they are an individual or a business. You may see Terms and Conditions agreements referred to as Terms of Service (ToS) or Terms of Use (ToU). There's no practical difference between these terms and companies use them interchangeably.
-        """
 
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(5)
@@ -126,32 +95,17 @@ class DescriptionViewController: UIViewController {
             make.height.equalTo(50)
         }
         
-        descriptionLabel.snp.makeConstraints { make in
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(descriptionView.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.top.equalTo(descriptionView.snp.bottom).inset(10)
-            make.bottom.equalTo(wikiButton.snp.top).inset(10)
+            make.height.equalTo(50)
         }
-    }
-}
-
-extension DescriptionViewController: DescriptionViewProtocol {
-    func setAlert(with alertItem: AlertItem?) {
-        deactivateSpinnerView()
-        if alertItem != nil {
-            let alert = UIAlertController(title: alertItem?.title,
-                                          message: alertItem?.message,
-                                          preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .cancel)
-            alert.addAction(ok)
-            self.present(alert, animated: true)
+        
+        subtitleLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.top.equalTo(titleLabel.snp.bottom).inset(10)
+            make.bottom.equalTo(wikiButton.snp.top).offset(-10)
         }
-    }
-    
-    func setSerpapiModel(model: WikiModel) {
-        deactivateSpinnerView()
-        self.descriptionView.fetchImage(imageString: model.imageURL)
-        self.descriptionLabel.text = model.title
-        print("Link for next step: \(model.description)")
     }
 }
 

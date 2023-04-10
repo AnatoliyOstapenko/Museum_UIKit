@@ -39,7 +39,6 @@ class NetworkingManager: NetworkingManagerProtocol {
     
     func getDataFromSerpapi(query: String, completion: @escaping(Result<SerpapiAPIModel, NetworkingError>) -> Void) {
         let stringURL = Constants.serpapiBaseURL + Password.serpapiKey + "&url=" + query
-        print(stringURL)
         self.request(stringURL: stringURL, expecting: SerpapiAPIModel.self, completion: completion)
     }
 
@@ -71,7 +70,6 @@ class NetworkingManager: NetworkingManagerProtocol {
             do {
                 let data = try JSONDecoder().decode(expecting, from: data)
                 completion(.success(data))
-                print(data)
             } catch { completion(.failure(.unableToComplete)) }
         }
         task.resume()
