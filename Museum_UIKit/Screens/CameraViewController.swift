@@ -40,16 +40,16 @@ class CameraViewController: SpinnerViewController, UIImagePickerControllerDelega
         configuration.baseForegroundColor = .white
 
         let button = UIButton(configuration: configuration)
+        button.showsMenuAsPrimaryAction = true
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
     }()
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
+        setButtonMenu()
     }
-    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])  {
         guard let image = info[.editedImage] as? UIImage else { return }
@@ -65,12 +65,28 @@ class CameraViewController: SpinnerViewController, UIImagePickerControllerDelega
 //        recognizeImage(ciImage)
     }
     
+    // MARK: Private methods
+    
+    private func setButtonMenu() {
+        let menu = UIMenu(title: "", children: [
+            UIAction(title: "Camera", image: UIImage(systemName: "camera"), handler: handlingUIMenu),
+            UIAction(title: "Photo Library", image: UIImage(systemName: "photo"), handler: handlingUIMenu),
+        ])
+        cameraButton.menu = menu
+    }
+    
+    private func handlingUIMenu(action: UIAction) {
+        switch action.title {
+        case "Camera": self.present(imagePickerVC, animated: true)
+        case "Photo Library": print("library")
+        default: break
+        }
+    }
+    
     private func configureUI() {
         view.backgroundColor = .black
         [cameraButton, imageView].forEach(view.addSubview)
-        
-        cameraButton.addTarget(self, action: #selector(cameraTapped), for: .touchUpInside)
-        
+
         imageView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
             make.width.height.equalToSuperview().dividedBy(2)
@@ -80,10 +96,6 @@ class CameraViewController: SpinnerViewController, UIImagePickerControllerDelega
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
-    }
-    
-    @objc private func cameraTapped() {
-        present(imagePickerVC, animated: true)
     }
     
     // MARK: - May be uncommented in the case of a high-end ML model

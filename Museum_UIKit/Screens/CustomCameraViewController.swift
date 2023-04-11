@@ -10,7 +10,8 @@ import AVFoundation
 import Vision
 import SnapKit
 
-// I left this VC as an example of a custom camera
+// MARK: -  I left this VC as an example of a custom camera
+
 class CustomCameraViewController: UIViewController {
     
     // MARK: - Object relations
