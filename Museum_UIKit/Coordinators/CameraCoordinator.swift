@@ -20,7 +20,7 @@ class CameraCoordinator: CameraCoordinatorProtocol {
     }
     
     func start() {
-        let view = RecognitionViewController()
+        let view = CameraViewController()
         let manager = NetworkingManager()
         let presenter = CameraPresnter(view: view, manager: manager)
         view.presenter = presenter
@@ -30,8 +30,11 @@ class CameraCoordinator: CameraCoordinatorProtocol {
     
     func goToDescription(_ model: WikiModel, vc: UIViewController) {
         let view = DescriptionViewController(wikiModel: model)
+        let manager = NetworkingManager()
+        let presenter = DescriptionPresenter(view: view, networkManager: manager)
+        view.presenter = presenter
         view.coordinator = self
-        if let viewController = vc as? RecognitionViewController {
+        if let viewController = vc as? CameraViewController {
             viewController.present(UINavigationController(rootViewController: view), animated: true)
         }
     }

@@ -8,18 +8,37 @@
 import UIKit
 import SnapKit
 
-final class SpinnerViewController: UIViewController {
-    var spinner = UIActivityIndicatorView(style: .large)
+class SpinnerViewController: UIViewController {
+    
+    private var containerView: UIView!
 
-    override func loadView() {
-        view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        func spinnerActivated() {
+            containerView = UIView(frame: view.bounds)
+            view.addSubview(containerView)
+            containerView.backgroundColor = .systemBackground
+            containerView.alpha = 0
+            UIView.animate(withDuration: 0.7) { self.containerView.alpha = 0.5 }
 
-        spinner.startAnimating()
-        view.addSubview(spinner)
+            let activityIndicator = UIActivityIndicatorView(style: .large)
+            containerView.addSubview(activityIndicator)
+            activityIndicator.color = .label
+            
+            activityIndicator.snp.makeConstraints { make in
+                make.centerX.centerY.equalTo(containerView)
+            }
 
-        spinner.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
+//            NSLayoutConstraint.activate([
+//                activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+//                activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
+//            ])
+            activityIndicator.startAnimating()
         }
-    }
+        
+        func spinnerDeactivated() {
+            DispatchQueue.main.async {
+                self.containerView.removeFromSuperview()
+                self.containerView = nil
+            }
+        }
+        
 }

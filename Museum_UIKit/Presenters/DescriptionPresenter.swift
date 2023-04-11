@@ -9,13 +9,13 @@ import UIKit
 
 // Outside
 protocol DescriptionViewProtocol: AnyObject {
-    func setSerpapiModel(model: WikiModel)
+    func setWikiModel(model: WikiModel)
     func setAlert(with alertItem: AlertItem?)
 }
 // Inside
 protocol DescriptionPresenterProtocol: AnyObject {
     init (view: DescriptionViewProtocol, networkManager: NetworkingManagerProtocol)
-    func getStringURL(stringURL: String)
+    func queryWikiData(query: String)
 }
 
 class DescriptionPresenter: DescriptionPresenterProtocol {
@@ -28,26 +28,26 @@ class DescriptionPresenter: DescriptionPresenterProtocol {
         self.networkManager = networkManager
     }
     
-    func getStringURL(stringURL: String) {
-        networkManager.getDataFromSerpapi(query: stringURL) { [weak self] result in
+    // Get Wiki information by title from Serpapi
+    
+    func queryWikiData(query: String) {
+        networkManager.getDataFromWiki(query: query) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let success):
-                    
-                    let wikiModel = WikiModel(title: success.request[0].title,
-                                              description: success.request[0].subtitle ?? "",
-                                              imageURL: success.request[0].images[0].stringURL ?? "",
-                                              link: success.request[0].link)
-                    
-                    
-                    self.view?.setSerpapiModel(model: wikiModel)
+                    guard let pageID = success.query.pageids.first else { return }
+                    let model = WikiModel(title: success.query.pages[pageID]?.title ?? "",
+                                          description: success.query.pages[pageID]?.extract ?? "",
+                                          imageURL: success.query.pages[pageID]?.thumbnail.source ?? "", link: "")
+                    self.view?.setWikiModel(model: model)
                 case .failure(let error):
                     self.handlingError(error: error)
                 }
             }
         }
     }
+    
     
     private func handlingError(error: NetworkingError) {
         switch error {

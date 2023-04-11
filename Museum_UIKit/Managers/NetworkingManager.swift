@@ -10,7 +10,7 @@ import Alamofire
 import UIKit
 
 protocol NetworkingManagerProtocol {
-    func getDataFromWiki(query: String, completion: @escaping (Result<WikiModel, NetworkingError>)->Void)
+    func getDataFromWiki(query: String, completion: @escaping (Result<WikiAPIModel, NetworkingError>)->Void)
     func getDataFromSerpapi(query: String, completion: @escaping(Result<SerpapiAPIModel, NetworkingError>) -> Void)
     func requestInfo(query: String, completion: @escaping(Result<WikiModel, Error>) -> Void)
     func downloadImage(imageURL: String, completion: @escaping(UIImage?) -> Void)
@@ -30,9 +30,11 @@ class NetworkingManager: NetworkingManagerProtocol {
     
     // Get HTTP response from Wikipedia
     
-    func getDataFromWiki(query: String, completion: @escaping(Result<WikiModel,NetworkingError>) -> Void) {
+    func getDataFromWiki(query: String, completion: @escaping(Result<WikiAPIModel, NetworkingError>) -> Void) {
         let stringURL = Constants.wikiBaseURL + query
-        self.request(stringURL: stringURL, expecting: WikiModel.self, completion: completion)
+        print(stringURL)
+        let link = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&pithumbsize=500&format=json&explaintext=&indexpageids&exintro=&titles=Mona Lisa"
+        self.request(stringURL: link, expecting: WikiAPIModel.self, completion: completion)
     }
     
     // Get HTTP response from Serpapi server
@@ -87,7 +89,7 @@ class NetworkingManager: NetworkingManagerProtocol {
         task.resume()
     }
     
-    // POST photo on Imgur server
+    // POST - Upload photo on Imgur server
     func uploadImage(image: UIImage?, completion: @escaping(Result<String, NetworkingError>) -> Void) {
         /// forkey - key get from https://api.imgur.com/endpoints/image#image-upload
         guard let image = image, let imageProperties = ImageProperties(with: image, forkey: "image") else {

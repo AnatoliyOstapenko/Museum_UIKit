@@ -7,9 +7,11 @@
 
 import UIKit
 
-class DescriptionViewController: UIViewController {
+class DescriptionViewController: SpinnerViewController {
     
     var coordinator: CameraCoordinatorProtocol?
+    var presenter: DescriptionPresenterProtocol?
+    
     private var wikiModel: WikiModel
 
     init(wikiModel: WikiModel) {
@@ -75,13 +77,24 @@ class DescriptionViewController: UIViewController {
         self.subtitleLabel.text = wikiModel.description
     }
     
+    @objc private func wikiButtonPressed() {
+        spinnerActivated()
+        DispatchQueue.global(qos: .utility).async {
+            self.presenter?.queryWikiData(query: self.wikiModel.title)
+        }
+    }
+
     private func configureUI() {
         view.backgroundColor = .systemBackground
         [descriptionView, titleLabel, subtitleLabel, wikiButton].forEach(view.addSubview)
         
+        wikiButton.addTarget(self, action: #selector(wikiButtonPressed), for: .touchUpInside)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
             self.dismiss(animated: true)
         })
+        
+        // MARK: - Layouts
 
         descriptionView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(5)
@@ -107,6 +120,28 @@ class DescriptionViewController: UIViewController {
             make.bottom.equalTo(wikiButton.snp.top).offset(-10)
         }
     }
+}
+
+extension DescriptionViewController: DescriptionViewProtocol {
+    func setWikiModel(model: WikiModel) {
+        spinnerDeactivated()
+        descriptionView.fetchImage(imageString: model.imageURL)
+        subtitleLabel.text = model.description
+        print(model)
+    }
+    
+    func setAlert(with alertItem: AlertItem?) {
+        spinnerDeactivated()
+        // Show custom error message if url request fails
+        if alertItem != nil {
+            let alert = UIAlertController(title: alertItem?.title,
+                                          message: alertItem?.message,
+                                          preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
+        }
+    }  
 }
 
 private extension UIImage {
