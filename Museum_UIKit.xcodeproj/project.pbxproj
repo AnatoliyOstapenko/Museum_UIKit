@@ -119,12 +119,8 @@
 		F90165DF29DDDB9400AA11CD /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */,
-				F9549F2A29E3277D00C1F26C /* SerpapiAPIModel.swift */,
-				F9549F2429E1E66700C1F26C /* ImgurAPIModel.swift */,
-				F90165E329DDE3C300AA11CD /* WikiModel.swift */,
-				F9E9AB2029E5A3C800278538 /* SerpapiModel.swift */,
-				F9549F2229E1DA7800C1F26C /* ImageProperties.swift */,
+				F9E9AB2229E5E15600278538 /* API Models */,
+				F9E9AB2329E5E16A00278538 /* Strucure Models */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -245,6 +241,26 @@
 				F985413729D9F34F00284A81 /* CamereButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		F9E9AB2229E5E15600278538 /* API Models */ = {
+			isa = PBXGroup;
+			children = (
+				F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */,
+				F9549F2A29E3277D00C1F26C /* SerpapiAPIModel.swift */,
+				F9549F2429E1E66700C1F26C /* ImgurAPIModel.swift */,
+			);
+			path = "API Models";
+			sourceTree = "<group>";
+		};
+		F9E9AB2329E5E16A00278538 /* Strucure Models */ = {
+			isa = PBXGroup;
+			children = (
+				F90165E329DDE3C300AA11CD /* WikiModel.swift */,
+				F9E9AB2029E5A3C800278538 /* SerpapiModel.swift */,
+				F9549F2229E1DA7800C1F26C /* ImageProperties.swift */,
+			);
+			path = "Strucure Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
