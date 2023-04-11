@@ -7,9 +7,8 @@
 
 import Foundation
 
-struct WikiModel: Decodable {
+struct WikiModel {
     let title: String
     let description: String
     let imageURL: String
-    let link: String
 }

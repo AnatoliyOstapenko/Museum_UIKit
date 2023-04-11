@@ -39,7 +39,7 @@ class DescriptionPresenter: DescriptionPresenterProtocol {
                     guard let pageID = success.query.pageids.first else { return }
                     let model = WikiModel(title: success.query.pages[pageID]?.title ?? "",
                                           description: success.query.pages[pageID]?.extract ?? "",
-                                          imageURL: success.query.pages[pageID]?.thumbnail.source ?? "", link: "")
+                                          imageURL: success.query.pages[pageID]?.thumbnail.source ?? "")
                     self.view?.setWikiModel(model: model)
                 case .failure(let error):
                     self.handlingError(error: error)

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CameraCoordinatorProtocol: Coordinator {
-    func goToDescription(_ model: WikiModel, vc: UIViewController)
+    func goToDescription(_ model: SerpapiModel, vc: UIViewController)
 }
 
 class CameraCoordinator: CameraCoordinatorProtocol {
@@ -28,8 +28,8 @@ class CameraCoordinator: CameraCoordinatorProtocol {
         navigationController.pushViewController(view, animated: true)
     }
     
-    func goToDescription(_ model: WikiModel, vc: UIViewController) {
-        let view = DescriptionViewController(wikiModel: model)
+    func goToDescription(_ model: SerpapiModel, vc: UIViewController) {
+        let view = DescriptionViewController(model: model)
         let manager = NetworkingManager()
         let presenter = DescriptionPresenter(view: view, networkManager: manager)
         view.presenter = presenter

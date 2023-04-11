@@ -33,8 +33,7 @@ class NetworkingManager: NetworkingManagerProtocol {
     func getDataFromWiki(query: String, completion: @escaping(Result<WikiAPIModel, NetworkingError>) -> Void) {
         let stringURL = Constants.wikiBaseURL + query
         print(stringURL)
-        let link = "https://en.wikipedia.org/w/api.php?action=query&prop=extracts|pageimages&pithumbsize=500&format=json&explaintext=&indexpageids&exintro=&titles=Mona Lisa"
-        self.request(stringURL: link, expecting: WikiAPIModel.self, completion: completion)
+        self.request(stringURL: stringURL, expecting: WikiAPIModel.self, completion: completion)
     }
     
     // Get HTTP response from Serpapi server
@@ -117,7 +116,7 @@ class NetworkingManager: NetworkingManagerProtocol {
             print("Response: \(response.statusCode)")
             
             do {
-                let link = try JSONDecoder().decode(ImgurModel.self, from: data)
+                let link = try JSONDecoder().decode(ImgurAPIModel.self, from: data)
                 completion(.success(link.data.link))
             } catch {
                 completion(.failure(.unableToComplete))
@@ -150,7 +149,7 @@ class NetworkingManager: NetworkingManagerProtocol {
                     guard let pageID = result.query.pageids.first else { return }
                     let model = WikiModel(title: result.query.pages[pageID]?.title ?? "",
                                           description: result.query.pages[pageID]?.extract ?? "",
-                                          imageURL: result.query.pages[pageID]?.thumbnail.source ?? "", link: "")
+                                          imageURL: result.query.pages[pageID]?.thumbnail.source ?? "")
                     completion(.success(model))
                 case .failure(let error):
                     completion(.failure(error))

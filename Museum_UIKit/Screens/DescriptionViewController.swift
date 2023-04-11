@@ -12,10 +12,10 @@ class DescriptionViewController: SpinnerViewController {
     var coordinator: CameraCoordinatorProtocol?
     var presenter: DescriptionPresenterProtocol?
     
-    private var wikiModel: WikiModel
+    private var model: SerpapiModel
 
-    init(wikiModel: WikiModel) {
-        self.wikiModel = wikiModel
+    init(model: SerpapiModel) {
+        self.model = model
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -72,15 +72,15 @@ class DescriptionViewController: SpinnerViewController {
     }
     
     private func updateUI() {
-        self.descriptionView.fetchImage(imageString: wikiModel.imageURL)
-        self.titleLabel.text = wikiModel.title
-        self.subtitleLabel.text = wikiModel.description
+        self.descriptionView.fetchImage(imageString: model.imageURL)
+        self.titleLabel.text = model.title
+        self.subtitleLabel.text = model.subtitle
     }
     
     @objc private func wikiButtonPressed() {
         spinnerActivated()
         DispatchQueue.global(qos: .utility).async {
-            self.presenter?.queryWikiData(query: self.wikiModel.title)
+            self.presenter?.queryWikiData(query: self.model.title)
         }
     }
 

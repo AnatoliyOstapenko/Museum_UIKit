@@ -14,7 +14,6 @@ class CameraViewController: SpinnerViewController, UIImagePickerControllerDelega
     
     var coordinator: CameraCoordinatorProtocol?
     var presenter: CameraPresnterProtocol?
-    private var wikiModel: WikiModel?
     
     private let recognitionView = WikiImageView(frame: .zero)
     
@@ -110,7 +109,7 @@ class CameraViewController: SpinnerViewController, UIImagePickerControllerDelega
 }
 
 extension CameraViewController: CameraViewProtocol {
-    func setSerpapiModel(model: WikiModel) {
+    func setSerpapiModel(model: SerpapiModel) {
         spinnerDeactivated()
         coordinator?.goToDescription(model, vc: self)
     }

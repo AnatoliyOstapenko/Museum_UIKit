@@ -11,7 +11,7 @@ import UIKit
 protocol CameraViewProtocol: AnyObject {
     func setLink(with stringURL: String)
     func setAlert(with alertItem: AlertItem?)
-    func setSerpapiModel(model: WikiModel)
+    func setSerpapiModel(model: SerpapiModel)
 }
 // Input
 protocol CameraPresnterProtocol: AnyObject {
@@ -24,7 +24,6 @@ class CameraPresnter: CameraPresnterProtocol {
     weak var view: CameraViewProtocol?
     private let manager: NetworkingManagerProtocol
     private var alertItem: AlertItem?
-    private var link: String?
     
     required init(view: CameraViewProtocol, manager: NetworkingManagerProtocol) {
         self.view = view
@@ -56,13 +55,12 @@ class CameraPresnter: CameraPresnterProtocol {
                 switch result {
                 case .success(let success):
                     
-                    let wikiModel = WikiModel(title: success.request[0].title,
-                                              description: success.request[0].subtitle ?? "",
-                                              imageURL: success.request[0].images[0].stringURL ?? "",
-                                              link: success.request[0].link)
+                    let model = SerpapiModel(title: success.request[0].title,
+                                             subtitle: success.request[0].subtitle ?? "",
+                                             imageURL: success.request[0].images[0].stringURL ?? "",
+                                             link: success.request[0].link)
                     
-                    self.link = success.request[0].link
-                    self.view?.setSerpapiModel(model: wikiModel)
+                    self.view?.setSerpapiModel(model: model)
                 case .failure(let error):
                     self.handlingError(error: error)
                 }
