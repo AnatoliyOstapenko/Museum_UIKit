@@ -32,7 +32,6 @@ class NetworkingManager: NetworkingManagerProtocol {
     
     func getDataFromWiki(query: String, completion: @escaping(Result<WikiAPIModel, NetworkingError>) -> Void) {
         let stringURL = Constants.wikiBaseURL + query
-        print(stringURL)
         self.request(stringURL: stringURL, expecting: WikiAPIModel.self, completion: completion)
     }
     

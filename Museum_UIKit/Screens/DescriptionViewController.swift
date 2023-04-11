@@ -127,7 +127,6 @@ extension DescriptionViewController: DescriptionViewProtocol {
         spinnerDeactivated()
         descriptionView.fetchImage(imageString: model.imageURL)
         subtitleLabel.text = model.description
-        print(model)
     }
     
     func setAlert(with alertItem: AlertItem?) {

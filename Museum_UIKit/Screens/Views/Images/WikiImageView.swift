@@ -21,10 +21,13 @@ class WikiImageView: UIImageView {
         }
         
         private func configure() {
-            image = UIImage(systemName: "photo")
+            image = UIImage(systemName: "photo.artframe")
             tintColor = .secondaryLabel
-            layer.cornerRadius = 10
             contentMode = .scaleAspectFit
+            
+            /// in case you get pictures from server the same size
+//            clipsToBounds = true
+//            layer.cornerRadius = 10
         }
         
         func fetchImage(imageString: String?) {

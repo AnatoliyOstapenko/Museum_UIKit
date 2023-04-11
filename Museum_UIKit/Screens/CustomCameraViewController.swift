@@ -16,6 +16,7 @@ class CustomCameraViewController: UIViewController {
     // MARK: - Object relations
     
     var coordinator: CameraCoordinatorProtocol?
+    var presenter: CameraPresnterProtocol?
     
     private var session: AVCaptureSession?
     private let output = AVCapturePhotoOutput()
@@ -188,4 +189,20 @@ extension CustomCameraViewController: AVCapturePhotoCaptureDelegate {
             self.previewView.image = image
         }
     }
+}
+
+extension CustomCameraViewController: CameraViewProtocol {
+    func setLink(with stringURL: String) {
+        
+    }
+    
+    func setAlert(with alertItem: AlertItem?) {
+        
+    }
+    
+    func setSerpapiModel(model: SerpapiModel) {
+        
+    }
+    
+    
 }
