@@ -138,6 +138,13 @@
 			path = Presenters;
 			sourceTree = "<group>";
 		};
+		F942385929E8840500BCDDAF /* Pictures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pictures;
+			sourceTree = "<group>";
+		};
 		F9549F0D29DF3ECB00C1F26C /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +190,7 @@
 				F90165DF29DDDB9400AA11CD /* Models */,
 				F985413A29D9F83700284A81 /* Utilities */,
 				F9598FDF29D747D4004F5E00 /* Support */,
+				F942385929E8840500BCDDAF /* Pictures */,
 				F9598FCF29D702B2004F5E00 /* Assets.xcassets */,
 				F9598FD129D702B2004F5E00 /* LaunchScreen.storyboard */,
 				F9598FD429D702B2004F5E00 /* Info.plist */,

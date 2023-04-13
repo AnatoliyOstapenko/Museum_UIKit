@@ -12,7 +12,6 @@ struct AlertItem {
     let message: String
 }
 
-
 struct AlertContext {
     static let invalidURL = AlertItem(title: "Server Error",
                                       message: "There was an issue with connecting to the server, please try again later or contact the support")
