@@ -23,8 +23,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 """
 }
 
-struct SFSymbols {
+enum SFSymbols {
     static let camera = UIImage(systemName: "camera.aperture")
+}
+
+enum CustomColor {
+    static let brandColor = UIColor(named: "brandColor")
 }
 
 

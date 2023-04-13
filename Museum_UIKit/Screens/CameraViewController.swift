@@ -51,7 +51,7 @@ class CameraViewController: SpinnerViewController {
     // MARK: Private methods
     
     private func configureUI() {
-        view.backgroundColor = .black
+        view.backgroundColor = CustomColor.brandColor
         [cameraButton, imageView].forEach(view.addSubview)
         
         self.imagePicker = ImagePicker(presentationController: self, delegate: self)
@@ -67,33 +67,6 @@ class CameraViewController: SpinnerViewController {
             make.height.equalTo(50)
         }
     }
-    
-    // MARK: - May be uncommented in the case of a high-end ML model
-    
-//    private func recognizeImage(_ ciImage: CIImage) {
-//        guard let model = try? VNCoreMLModel(for: Inceptionv3(configuration: MLModelConfiguration()).model) else {
-//            return
-//        }
-//        // Handler
-//        let handler = VNImageRequestHandler(ciImage: ciImage)
-//        // Request
-//        let request = VNCoreMLRequest(model: model) { [weak self] request, error in
-//            guard let self = self, let result = request.results?.first as? VNClassificationObservation else {
-//                print("Request fails")
-//                return
-//            }
-//
-//            guard let recognizedText = result.identifier.components(separatedBy: ",").first else { return }
-//            self.presenter?.getWikiData(query: recognizedText)
-//        }
-//
-//        // Process request
-//        do {
-//            try handler.perform([request])
-//        } catch {
-//            print(error)
-//        }
-//    }
 }
 
 extension CameraViewController: CameraViewProtocol {
