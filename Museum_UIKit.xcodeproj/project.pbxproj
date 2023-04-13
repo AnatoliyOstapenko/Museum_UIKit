@@ -13,6 +13,7 @@
 		F90165DC29DDD61300AA11CD /* WikiAPIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */; };
 		F90165E129DDE31700AA11CD /* CameraPresnter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165E029DDE31700AA11CD /* CameraPresnter.swift */; };
 		F90165E429DDE3C300AA11CD /* WikiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90165E329DDE3C300AA11CD /* WikiModel.swift */; };
+		F942385229E7183C00BCDDAF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942385129E7183C00BCDDAF /* ImagePicker.swift */; };
 		F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */; };
 		F9549F1129DF3F4F00C1F26C /* WikiImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */; };
 		F9549F2129E0967400C1F26C /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9549F2029E0967400C1F26C /* Password.swift */; };
@@ -45,6 +46,7 @@
 		F90165DB29DDD61300AA11CD /* WikiAPIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiAPIModel.swift; sourceTree = "<group>"; };
 		F90165E029DDE31700AA11CD /* CameraPresnter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPresnter.swift; sourceTree = "<group>"; };
 		F90165E329DDE3C300AA11CD /* WikiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiModel.swift; sourceTree = "<group>"; };
+		F942385129E7183C00BCDDAF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		F9549F0B29DF3EC400C1F26C /* WikiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImageView.swift; sourceTree = "<group>"; };
 		F9549F1029DF3F4F00C1F26C /* WikiImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikiImagePresenter.swift; sourceTree = "<group>"; };
 		F9549F2029E0967400C1F26C /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 		F9549F2E29E44E5B00C1F26C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F942385129E7183C00BCDDAF /* ImagePicker.swift */,
 				F9549F2C29E44E5100C1F26C /* SpinnerViewController.swift */,
 			);
 			path = Controllers;
@@ -379,6 +382,7 @@
 			files = (
 				F9549F0C29DF3EC400C1F26C /* WikiImageView.swift in Sources */,
 				F9549F2929E3261B00C1F26C /* DescriptionPresenter.swift in Sources */,
+				F942385229E7183C00BCDDAF /* ImagePicker.swift in Sources */,
 				F9E9AB2129E5A3C800278538 /* SerpapiModel.swift in Sources */,
 				F9598FC829D702B1004F5E00 /* CustomCameraViewController.swift in Sources */,
 				F90165D629DDC20B00AA11CD /* Constants.swift in Sources */,

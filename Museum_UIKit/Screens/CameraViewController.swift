@@ -10,19 +10,13 @@ import Vision
 import CoreML
 import SnapKit
 
-class CameraViewController: SpinnerViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CameraViewController: SpinnerViewController {
     
     var coordinator: CameraCoordinatorProtocol?
     var presenter: CameraPresnterProtocol?
-
-    private lazy var imagePickerVC: UIImagePickerController = {
-        let vc = UIImagePickerController()
-        vc.sourceType = .camera
-        vc.allowsEditing = true /// it is important to use the cropped image for further uploading to Imgur
-        vc.delegate = self
-        return vc
-    }()
     
+    var imagePicker: ImagePicker!
+
     private lazy var imageView: UIImageView = {
         let imageView = Constants.wikiLogo
         imageView.contentMode = .scaleAspectFit
@@ -48,40 +42,15 @@ class CameraViewController: SpinnerViewController, UIImagePickerControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        setButtonMenu()
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self)
+        cameraButton.addTarget(self, action: #selector(tapped), for: .touchUpInside)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])  {
-        guard let image = info[.editedImage] as? UIImage else { return }
-        imagePickerVC.dismiss(animated: true)
-        
-        spinnerActivated()
-        DispatchQueue.global(qos: .utility).async {
-            self.presenter?.fetchLink(image: image)
-        }
-
-        /// if you need to recognize object by ML:
-//        guard let ciImage = CIImage(image: image) else { return }
-//        recognizeImage(ciImage)
+    @objc func tapped(sender: UIButton) {
+        self.imagePicker.present(from: sender)
     }
     
     // MARK: Private methods
-    
-    private func setButtonMenu() {
-        let menu = UIMenu(title: "", children: [
-            UIAction(title: "Camera", image: UIImage(systemName: "camera"), handler: handlingUIMenu),
-            UIAction(title: "Photo Library", image: UIImage(systemName: "photo"), handler: handlingUIMenu),
-        ])
-        cameraButton.menu = menu
-    }
-    
-    private func handlingUIMenu(action: UIAction) {
-        switch action.title {
-        case "Camera": self.present(imagePickerVC, animated: true)
-        case "Photo Library": print("library")
-        default: break
-        }
-    }
     
     private func configureUI() {
         view.backgroundColor = .black
@@ -134,20 +103,37 @@ extension CameraViewController: CameraViewProtocol {
 
     func setAlert(with alertItem: AlertItem?) {
         spinnerDeactivated()
+        let mockModel = SerpapiModel(title: "This is fake image",
+                                     subtitle: "No one paint that",
+                                     imageURL: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MJQK3?wid=532&hei=582&fmt=png-alpha&.v=1665496505001",
+                                     link: "https://www.apple.com/shop/accessories/all")
+        coordinator?.goToDescription(mockModel, vc: self)
         // Show custom error message if url request fails
-        if alertItem != nil {
-            let alert = UIAlertController(title: alertItem?.title,
-                                          message: alertItem?.message,
-                                          preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .cancel)
-            alert.addAction(ok)
-            self.present(alert, animated: true)
-        }
+//        if alertItem != nil {
+//            let alert = UIAlertController(title: alertItem?.title,
+//                                          message: alertItem?.message,
+//                                          preferredStyle: .alert)
+//            let ok = UIAlertAction(title: "OK", style: .cancel)
+//            alert.addAction(ok)
+//            self.present(alert, animated: true)
+//        }
+        
+        
+        
     }
     
     func setLink(with stringURL: String) {
         DispatchQueue.global(qos: .utility).async {
             self.presenter?.getStringURL(stringURL: stringURL)
+        }
+    }
+}
+
+extension CameraViewController: ImagePickerDelegate {
+    func didSelect(image: UIImage?) {
+        spinnerActivated()
+        DispatchQueue.global(qos: .utility).async {
+            self.presenter?.fetchLink(image: image)
         }
     }
 }
