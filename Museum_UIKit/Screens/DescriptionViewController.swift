@@ -74,8 +74,8 @@ class DescriptionViewController: SpinnerViewController {
         configuration.image = UIImage(systemName: "safari.fill")
         configuration.buttonSize = .large
         configuration.imagePadding = 10
-        configuration.baseBackgroundColor = .systemCyan
-        configuration.baseForegroundColor = .systemCyan
+        configuration.baseBackgroundColor = CustomColor.brandColor
+        configuration.baseForegroundColor = CustomColor.brandColor
 
         let button = UIButton(configuration: configuration)
         return button
