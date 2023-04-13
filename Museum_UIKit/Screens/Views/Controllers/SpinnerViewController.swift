@@ -26,11 +26,6 @@ class SpinnerViewController: UIViewController {
             activityIndicator.snp.makeConstraints { make in
                 make.centerX.centerY.equalTo(containerView)
             }
-
-//            NSLayoutConstraint.activate([
-//                activityIndicator.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-//                activityIndicator.centerYAnchor.constraint(equalTo: containerView.centerYAnchor)
-//            ])
             activityIndicator.startAnimating()
         }
         

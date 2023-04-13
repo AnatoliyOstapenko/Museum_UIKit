@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class DescriptionViewController: SpinnerViewController {
     
@@ -54,21 +55,45 @@ class DescriptionViewController: SpinnerViewController {
 
         container.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         configuration.attributedTitle = AttributedString("Wikipedia", attributes: container)
-        configuration.image = UIImage(named: "wikiLogo")?.resized(to: CGSize(width: 30, height: 30))
+        configuration.image = UIImage(named: "wikiLogo")?.resized(to: CGSize(width: 22, height: 22))
         configuration.buttonSize = .large
         configuration.imagePadding = 10
         configuration.baseBackgroundColor = .label
         configuration.baseForegroundColor = .label
 
         let button = UIButton(configuration: configuration)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
+    }()
+    
+    private lazy var onlineButton: UIButton = {
+        var configuration = UIButton.Configuration.tinted()
+        var container = AttributeContainer()
+
+        container.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        configuration.attributedTitle = AttributedString("Read Online", attributes: container)
+        configuration.image = UIImage(systemName: "safari.fill")
+        configuration.buttonSize = .large
+        configuration.imagePadding = 10
+        configuration.baseBackgroundColor = .systemCyan
+        configuration.baseForegroundColor = .systemCyan
+
+        let button = UIButton(configuration: configuration)
+        return button
+    }()
+    
+    private lazy var container: UIStackView = {
+        let container = UIStackView()
+        container.axis = .horizontal
+        container.distribution = .fillEqually
+        container.spacing = 8
+        return container
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         updateUI()
+        wikiButton.isHidden = false
     }
     
     private func updateUI() {
@@ -83,12 +108,21 @@ class DescriptionViewController: SpinnerViewController {
             self.presenter?.queryWikiData(query: self.model.title)
         }
     }
+    
+    @objc private func onlineButtonPressed() {
+        guard let url = URL(string: model.link) else { return }
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.preferredControlTintColor = .label
+        present(safariVC, animated: true, completion: nil)
+    }
 
     private func configureUI() {
         view.backgroundColor = .systemBackground
-        [descriptionView, titleLabel, subtitleLabel, wikiButton].forEach(view.addSubview)
+        [descriptionView, titleLabel, subtitleLabel, container].forEach(view.addSubview)
+        [wikiButton, onlineButton].forEach(container.addArrangedSubview)
         
         wikiButton.addTarget(self, action: #selector(wikiButtonPressed), for: .touchUpInside)
+        onlineButton.addTarget(self, action: #selector(onlineButtonPressed), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(systemItem: .close, primaryAction: UIAction { _ in
             self.dismiss(animated: true)
@@ -102,10 +136,10 @@ class DescriptionViewController: SpinnerViewController {
             make.height.equalTo(view.snp.height).dividedBy(2.5)
         }
         
-        wikiButton.snp.makeConstraints { make in
+        container.snp.makeConstraints { make in
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
             make.centerX.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(40)
         }
         
         titleLabel.snp.makeConstraints { make in
@@ -117,7 +151,7 @@ class DescriptionViewController: SpinnerViewController {
         subtitleLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
             make.top.equalTo(titleLabel.snp.bottom).inset(10)
-            make.bottom.equalTo(wikiButton.snp.top).offset(-10)
+            make.bottom.equalTo(container.snp.top).offset(-10)
         }
     }
 }
@@ -125,13 +159,15 @@ class DescriptionViewController: SpinnerViewController {
 extension DescriptionViewController: DescriptionViewProtocol {
     func setWikiModel(model: WikiModel) {
         spinnerDeactivated()
+        wikiButton.isHidden = false
         descriptionView.fetchImage(imageString: model.imageURL)
         subtitleLabel.text = model.description
     }
     
     func setAlert(with alertItem: AlertItem?) {
         spinnerDeactivated()
-        // Show custom error message if url request fails
+        wikiButton.isHidden = true
+//         Show custom error message if url request fails
         if alertItem != nil {
             let alert = UIAlertController(title: alertItem?.title,
                                           message: alertItem?.message,

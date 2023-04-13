@@ -42,8 +42,6 @@ class CameraViewController: SpinnerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        self.imagePicker = ImagePicker(presentationController: self, delegate: self)
-        cameraButton.addTarget(self, action: #selector(tapped), for: .touchUpInside)
     }
     
     @objc func tapped(sender: UIButton) {
@@ -55,6 +53,9 @@ class CameraViewController: SpinnerViewController {
     private func configureUI() {
         view.backgroundColor = .black
         [cameraButton, imageView].forEach(view.addSubview)
+        
+        self.imagePicker = ImagePicker(presentationController: self, delegate: self)
+        cameraButton.addTarget(self, action: #selector(tapped), for: .touchUpInside)
 
         imageView.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
@@ -103,23 +104,15 @@ extension CameraViewController: CameraViewProtocol {
 
     func setAlert(with alertItem: AlertItem?) {
         spinnerDeactivated()
-        let mockModel = SerpapiModel(title: "This is fake image",
-                                     subtitle: "No one paint that",
-                                     imageURL: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MJQK3?wid=532&hei=582&fmt=png-alpha&.v=1665496505001",
-                                     link: "https://www.apple.com/shop/accessories/all")
-        coordinator?.goToDescription(mockModel, vc: self)
-        // Show custom error message if url request fails
-//        if alertItem != nil {
-//            let alert = UIAlertController(title: alertItem?.title,
-//                                          message: alertItem?.message,
-//                                          preferredStyle: .alert)
-//            let ok = UIAlertAction(title: "OK", style: .cancel)
-//            alert.addAction(ok)
-//            self.present(alert, animated: true)
-//        }
-        
-        
-        
+        /// Show custom error message if url request fails:
+        if alertItem != nil {
+            let alert = UIAlertController(title: alertItem?.title,
+                                          message: alertItem?.message,
+                                          preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel)
+            alert.addAction(ok)
+            self.present(alert, animated: true)
+        }
     }
     
     func setLink(with stringURL: String) {

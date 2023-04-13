@@ -38,8 +38,7 @@ class NetworkingManager: NetworkingManagerProtocol {
     // Get HTTP response from Serpapi server
     
     func getDataFromSerpapi(query: String, completion: @escaping(Result<SerpapiAPIModel, NetworkingError>) -> Void) {
-//        let stringURL = Constants.serpapiBaseURL + Password.serpapiKey + "&url=" + query
-        let stringURL = ""
+        let stringURL = Constants.serpapiBaseURL + Password.serpapiKey + "&url=" + query
         self.request(stringURL: stringURL, expecting: SerpapiAPIModel.self, completion: completion)
     }
 

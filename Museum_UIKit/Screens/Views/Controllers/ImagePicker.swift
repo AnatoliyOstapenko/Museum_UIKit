@@ -44,6 +44,7 @@ open class ImagePicker: NSObject {
     public func present(from sourceView: UIView) {
 
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.view.tintColor = .label
 
         if let action = self.action(for: .camera, title: "Take photo") {
             alertController.addAction(action)
@@ -74,11 +75,7 @@ open class ImagePicker: NSObject {
 }
 
 extension ImagePicker: UIImagePickerControllerDelegate {
-
-    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.pickerController(picker, didSelect: nil)
-    }
-
+    
     public func imagePickerController(_ picker: UIImagePickerController,
                                       didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[.editedImage] as? UIImage else {

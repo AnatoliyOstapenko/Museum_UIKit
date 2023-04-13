@@ -42,7 +42,7 @@ class DescriptionPresenter: DescriptionPresenterProtocol {
                                           imageURL: success.query.pages[pageID]?.thumbnail.source ?? "")
                     self.view?.setWikiModel(model: model)
                 case .failure(let error):
-                    self.handlingError(error: error)
+                    self.handlingError(error: error)  
                 }
             }
         }
