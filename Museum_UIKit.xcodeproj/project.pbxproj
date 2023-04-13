@@ -33,7 +33,6 @@
 		F9598FDB29D72D38004F5E00 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FDA29D72D38004F5E00 /* Coordinator.swift */; };
 		F9598FDD29D72D82004F5E00 /* CameraCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9598FDC29D72D82004F5E00 /* CameraCoordinator.swift */; };
 		F985413829D9F34F00284A81 /* CamereButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F985413729D9F34F00284A81 /* CamereButton.swift */; };
-		F985413E29DA06B400284A81 /* Inceptionv3.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = F985413D29DA06B400284A81 /* Inceptionv3.mlmodel */; };
 		F985414029DADD4A00284A81 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F985413F29DADD4A00284A81 /* CameraViewController.swift */; };
 		F9E9AB2129E5A3C800278538 /* SerpapiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E9AB2029E5A3C800278538 /* SerpapiModel.swift */; };
 /* End PBXBuildFile section */
@@ -69,7 +68,6 @@
 		F9598FDA29D72D38004F5E00 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F9598FDC29D72D82004F5E00 /* CameraCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraCoordinator.swift; sourceTree = "<group>"; };
 		F985413729D9F34F00284A81 /* CamereButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CamereButton.swift; sourceTree = "<group>"; };
-		F985413D29DA06B400284A81 /* Inceptionv3.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = Inceptionv3.mlmodel; sourceTree = "<group>"; };
 		F985413F29DADD4A00284A81 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		F9E9AB2029E5A3C800278538 /* SerpapiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerpapiModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,7 +203,6 @@
 		F9598FDF29D747D4004F5E00 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				F985413D29DA06B400284A81 /* Inceptionv3.mlmodel */,
 				F9598FC329D702B1004F5E00 /* AppDelegate.swift */,
 				F9598FC529D702B1004F5E00 /* SceneDelegate.swift */,
 			);
@@ -391,7 +388,6 @@
 				F9598FC829D702B1004F5E00 /* CustomCameraViewController.swift in Sources */,
 				F90165D629DDC20B00AA11CD /* Constants.swift in Sources */,
 				F9549F2D29E44E5100C1F26C /* SpinnerViewController.swift in Sources */,
-				F985413E29DA06B400284A81 /* Inceptionv3.mlmodel in Sources */,
 				F985414029DADD4A00284A81 /* CameraViewController.swift in Sources */,
 				F9598FDD29D72D82004F5E00 /* CameraCoordinator.swift in Sources */,
 				F90165E429DDE3C300AA11CD /* WikiModel.swift in Sources */,
