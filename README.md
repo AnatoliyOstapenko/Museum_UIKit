@@ -34,8 +34,6 @@
 - Show the user a modal screen with the summary information found. 
 - The user has the option to view detailed information from the Wiki or on the Internet.
 <p align="left">	
-<img src="foundPic.png" width="240" height="450">
-</a>
 <img src="wikiPic.png" width="240" height="450">
 </a>
 <img src="googlePic.png" width="240" height="450">
