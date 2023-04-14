@@ -13,45 +13,43 @@
 </p>
 
 <p align="left">	
-<img src="weather.png" width="120" height="120">
+<img src="1024.png" width="120" height="120">
 </p>
 
-## About app
-- Take a picture or choose from photo library any object by iPhone
+## Features
+- Take a photo by iPhone or choose a photo from photo library.
 - Recognize from the screen-captured image that this is exactly this product (painting for example)
 - Show user the view with the image of the painting and the brief info regarding that
 - Provide the user with the ability to immediately search for a product using Google or search for it on Wikipedia
 
-## Main screen:
-- Today's forecast
-- Forecast for the next few days
-- Maximum/minimum temperature
-- Average humidity
-- Wind speed and direction
+## Usage
+- The user has the option to take a photo on the iPhone or choose a photo from the library
+<p align="left">	
+<img src="firstPic.png" width="240" height="450">
+</a>
+<img src="buttonPic.png" width="240" height="450">
+</a>
+</p>
 
-## Map:
-- Determination of the current location;
-- Selection of a point on the map with subsequent loading of weather by coordinates on the main screen.
+- Show the user a modal screen with the summary information found. 
+- The user has the option to view detailed information from the Wiki or on the Internet.
+<p align="left">	
+<img src="foundPic.png" width="240" height="450">
+</a>
+<img src="wikiPic.png" width="240" height="450">
+</a>
+<img src="googlePic.png" width="240" height="450">
+</a>
+</p>
 
-## City search:
-- Search for settlements with autocomplete on keyboard input;
-- Selection of a settlement with subsequent loading of weather on the main screen.
 
-## Used:
-- Adaptive layout
+## Architecture:
 - Consideration of screen rotation
 - MVP + Coordinator design pattern
 - Dependency injection + SnapKit library Cocoapods
 - Swift UIKit without storyboard
 
 ## Used API:
-- [openweathermap](https://openweathermap.org/api)
-
-## Pictures:
-<p align="left">	
-<img src="picFirst.png" width="260" height="480">
-</a>
-<img src="picSecond.png" width="260" height="480">
-</a>
-<img src="picLondon.png" width="260" height="480">
-</p>
+- [serpapi](https://serpapi.com)
+- [imgur](https://api.imgur.com)
+- [wikipedia](https://en.wikipedia.org/w/api.php)
